@@ -1,0 +1,11 @@
+##################################
+##  VARIABLE DEFINITIONS        ##
+##                              ##
+##  Class: CIP                  ##
+##  Sets up:                    ##
+##  - Client scripts            ##
+##      - erstanmeldung         ##
+##      - clean                 ##
+##      - ubuntu18/20           ##
+##      - ...                   ##
+##################################

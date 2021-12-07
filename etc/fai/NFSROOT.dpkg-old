@@ -1,0 +1,79 @@
+# package list for creating the NFSROOT
+
+PACKAGES install
+
+nfs-common fai-nfsroot ssh rdate lshw rpcbind
+rsync lftp less dump reiserfsprogs e2fsprogs usbutils
+hwinfo psmisc pciutils hdparm smartmontools parted mdadm lvm2
+dnsutils ntpdate dosfstools xfsprogs xfsdump btrfs-tools
+procinfo numactl dialog
+console-common kbd
+iproute2 netselect moreutils udev subversion
+xz-utils
+pxelinux syslinux-common # in jessie we need both
+curl wget- netcat-traditional
+ca-certificates # for get-config-dir-https
+nmap
+emacs24-nox
+
+# some network cards needs firmware
+firmware-bnx2 firmware-bnx2x firmware-realtek
+#firmware-linux-nonfree
+
+# dracut replaces live-boot and initramfs-tools
+dracut-network dracut live-boot- initramfs-tools-
+dracut-config-generic # for jessie add "deb http://fai-project.org/download jessie koeln"
+
+#git # git consumes a lot of disk space on the FAI CD
+
+sysvinit-core systemd-sysv-
+
+# you should not edit the lines below
+# architecture dependend list of packages that are installed
+
+#PACKAGES install I386
+#grub-pc
+#linux-image-server
+
+# packages for Ubuntu natty/oneiric/precise:
+# linux-image-generic live-boot
+
+#PACKAGES install AMD64
+#grub-pc
+#linux-image-server
+
+# packages for Ubuntu vivid
+#PACKAGES install UBUNTU
+#upstart-sysv
+
+# from https://github.com/faiproject/fai/blob/master/conf/NFSROOT
+PACKAGES install-norec I386
+grub-pc
+efibootmgr
+linux-image-686-pae
+
+PACKAGES install-norec AMD64
+grub-pc
+grub-efi-amd64-bin
+efibootmgr
+linux-image-amd64
+#linux-image-amd64/bullseye-backports # if you want to use a newer kernel
+
+PACKAGES install-norec ARM64
+grub-efi-arm64
+efibootmgr
+linux-image-arm64
+
+PACKAGES install-norec ARMHF
+grub-efi-arm
+efibootmgr
+linux-image-armmp
+
+PACKAGES install-norec DEBIAN_9
+apt-transport-https
+
+PACKAGES install-norec DEBIAN_10
+fdisk gpg
+
+PACKAGES install-norec DEBIAN_11 DEBIAN_
+fdisk gpg

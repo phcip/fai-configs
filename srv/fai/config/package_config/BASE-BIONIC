@@ -1,0 +1,89 @@
+##################################
+##  PACKAGE INSTALLATION        ##
+##                              ##
+##  Class: BASE-BIONIC          ##
+##  Sets up:                    ##
+##  - Ubuntu 18.04 LTS (bionic) ##
+##  (Backup)                    ##
+##################################
+
+# packages essential for FAI installation
+PACKAGES install AMD64
+#linux-image-generic
+linux-generic-hwe-18.04 # HWE kernel 4.15
+initramfs-tools
+memtest86+
+
+PACKAGES install DHCPC
+isc-dhcp-client
+
+PACKAGES install GRUB_PC
+grub-pc
+
+PACKAGES install
+aptitude
+fai-client
+cron
+debconf-utils
+file
+less
+linuxlogo
+rdate
+rsync
+openssh-client openssh-server
+strace
+time
+procinfo
+nullmailer
+eject
+locales
+console-setup kbd
+pciutils usbutils
+vim
+
+
+#### Minimal Desktop Environment ###
+PACKAGES install
+
+ubuntu-minimal
+ubuntu-standard
+
+xfonts-scalable
+xfonts-100dpi
+
+libgl1-mesa-dri
+xserver-xorg-video-intel
+intel-microcode
+xorg
+
+accountsservice         # provides a set of D-Bus interfaces for querying and manipulating user account information
+                        # LightDM starts without this package only after long idle time
+consolekit              # system daemon for tracking logged in users an their interaction with the system
+                        # LightDM needs this package to
+nfs-common
+
+gdm3-
+lightdm
+lightdm-gtk-greeter
+#unity-greeter
+greybird-gtk-theme
+dbus-x11						# important!
+gvfs							# important!
+
+# Ubuntu GNOME
+#ubuntu-gnome-desktop
+ubuntu-desktop
+gnome-themes-extra
+adwaita-icon-theme-full
+adwaita-qt
+eog-plugin-disable-dark-theme
+gnome-colors
+gnome-icon-theme
+numix-gtk-theme		# unser Standardthema
+numix-icon-theme		# unser Standardthema
+gnome-themes-ubuntu
+materia-gtk-theme
+gnome-terminal
+gnome-tweak-tool
+gnome-screensaver
+gkbd-capplet

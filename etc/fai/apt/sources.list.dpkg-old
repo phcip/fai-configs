@@ -1,0 +1,28 @@
+# These lines should work for many sites
+
+deb http://deb.debian.org/debian bullseye main contrib non-free
+deb http://deb.debian.org/debian-security bullseye-security main contrib non-free
+deb http://deb.debian.org/debian bullseye-backports main contrib non-free
+
+# from bullseye on you need
+#deb http://deb.debian.org/debian-security bullseye-security main contrib non-free
+
+# repository that may contain newer fai packages for bullseye
+# Fails GPG key
+# deb http://fai-project.org/download bullseye koeln
+
+# FOCAL
+#deb http://archive.ubuntu.com/ubuntu focal main restricted
+#deb http://archive.ubuntu.com/ubuntu focal-updates main restricte
+#deb http://archive.ubuntu.com/ubuntu focal universe
+#deb http://archive.ubuntu.com/ubuntu focal-updates universe
+#deb http://archive.ubuntu.com/ubuntu focal multiverse
+#deb http://archive.ubuntu.com/ubuntu focal-updates multiverse
+
+#deb http://archive.ubuntu.com/ubuntu focal-backports main restricted universe multiverse
+#deb http://archive.ubuntu.com/ubuntu focal-security main restricted
+#deb http://archive.ubuntu.com/ubuntu focal-security universe
+#deb http://archive.ubuntu.com/ubuntu focal-security multiverse 
+
+
+

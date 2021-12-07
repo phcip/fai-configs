@@ -1,0 +1,8 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# add i386 package support
+$ROOTCMD dpkg --add-architecture i386
+
+exit $error

@@ -1,0 +1,11 @@
+##################################
+##  PACKAGE INSTALLATION        ##
+##                              ##
+##  Class: AFS                  ##
+##  Sets up:                    ##
+##  - OpenAFS                   ##
+##  - AFS Config                ##
+##  - Kerberos                  ##
+##  - NIS (yptest, nsswitch)    ##
+##  - Custom patch for AFS      ##
+##################################

@@ -1,0 +1,12 @@
+# example of new config file for setup-storage
+#
+# <type> <mountpoint> <size>   <fs type> <mount options> <misc options>
+
+disk_config disk1 disklabel:msdos bootable:1 fstabkey:uuid
+
+# /dev/hda1
+primary /      40G	ext4  rw,noatime,errors=remount-ro
+# /dev/hda2
+logical swap   4G	swap  sw
+# logfiles
+primary /var/log 2G  ext4  rw,noatime,errors=remount-ro

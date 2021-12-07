@@ -1,0 +1,17 @@
+##################################
+##  VARIABLE DEFINITIONS        ##
+##                              ##
+##  Class: BASE-BIONIC          ##
+##  Sets up:                    ##
+##  - Ubuntu 18.04 LTS (bionic) ##
+##  (Backup)                    ##
+##################################
+# default values for installation. You can override them in your *.var files
+
+# this UBUNTU distribution will be installed on client
+# also used to create client sources.list
+ubuntudist=bionic
+
+# set to "yes" if we use local package mirror
+# used by hooks/updatebase.FAIBASE
+usemirror=no

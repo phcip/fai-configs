@@ -1,0 +1,43 @@
+##################################
+##  PACKAGE INSTALLATION        ##
+##                              ##
+##  Class: FAIBASE              ##
+##  Sets up:                    ##
+##  - Basic Packages            ##
+##  - Kernel                    ##
+##  - GRUB                      ##
+##################################
+
+# packages essential for FAI installation
+PACKAGES install AMD64
+#linux-image-generic
+linux-generic-hwe-20.04 # HWE kernel 5.4
+initramfs-tools
+memtest86+
+
+PACKAGES install DHCPC
+isc-dhcp-client
+
+PACKAGES install GRUB_PC
+grub-pc
+
+PACKAGES install
+aptitude
+fai-client
+cron
+debconf-utils
+file
+less
+linuxlogo
+rdate
+rsync
+openssh-client openssh-server
+strace
+time
+procinfo
+nullmailer
+eject
+locales
+console-setup kbd
+pciutils usbutils
+vim

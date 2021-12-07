@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# list exclude classes we don't have archives for
+# i. e. LINUX, $HOSTNAME etc.
+exclude="DEFAULT LINUX AMD64 DHCPC $HOSTNAME LAST GRUB_PC"
+
+# substract exclude classes from full list
+archives=$(echo $classes $exclude | tr ' ' '\n' | sort | uniq -u)
+
+cd $target
+
+for CLASS in $archives
+do
+	if [ -f $FAI/files/archives/$CLASS.tar ]; then
+		echo -n "Unpacking $CLASS.tar... "
+		tar xf $FAI/files/archives/$CLASS.tar
+		echo "Done."
+	else
+		echo "$CLASS.tar not found."
+	fi
+done
+cd /
+
+exit 0

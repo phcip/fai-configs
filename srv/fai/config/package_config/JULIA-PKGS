@@ -1,0 +1,8 @@
+##################################
+##  PACKAGE INSTALLATION        ##
+##                              ##
+##  Class: JULIA-PKGS           ##
+##  Sets up:                    ##
+##  - All wanted julia packages ##
+##  - requires Julia from APPS  ##
+##################################
