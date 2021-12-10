@@ -23,6 +23,8 @@ dkms
 openafs-client
 openafs-modules-dkms	# openafs-client will be installed as a dependency
 openafs-krb5
+krb5-user
+krb5-config
 #openafs-kpasswd
 	# network information services
 nis			# yields user information from rrzk server

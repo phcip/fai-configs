@@ -1,0 +1,7 @@
+#! /bin/bash
+
+# adds the AFS ppa repository before installing the packages
+$ROOTCMD add-apt-repository -y ppa:openafs/stable
+$ROOTCMD apt -y update
+
+exit 0
