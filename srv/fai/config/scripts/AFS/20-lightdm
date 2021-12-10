@@ -1,0 +1,11 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# Set LightDM to be standard display manager, necessary for AFS
+
+if ! $ROOTCMD dpkg-reconfigure lightdm; then
+	$ROOTCMD dpkg-reconfigure -f noninteractive lightdm
+fi
+
+exit $error
