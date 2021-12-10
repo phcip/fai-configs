@@ -3,9 +3,8 @@
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 
 # Set LightDM to be standard display manager, necessary for AFS
-
-if ! $ROOTCMD dpkg-reconfigure lightdm; then
-	$ROOTCMD dpkg-reconfigure -f noninteractive lightdm
-fi
+echo "/usr/sbin/lightdm" | $ROOTCMD tee /etc/X11/default-display-manager
+$ROOTCMD DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true dpkg-reconfigure lightdm
+echo set shared/default-x-display-manager lightdm | $ROOTCMD debconf-communicate
 
 exit $error
