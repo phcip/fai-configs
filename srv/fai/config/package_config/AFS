@@ -9,3 +9,31 @@
 ##  - NIS (yptest, nsswitch)    ##
 ##  - Custom patch for AFS      ##
 ##################################
+
+#==============================================================================
+
+# AFS (distributed file system containing RRZK user home directories)
+PACKAGES install
+	# pre-dependencies for dynamical kernel module building
+	# OpenAFS client will be integrated as a kernel module
+module-assistant
+linux-headers-generic
+dkms
+	# OpenAFS client + Kerberos cryptography modules
+openafs-client
+openafs-modules-dkms	# openafs-client will be installed as a dependency
+openafs-krb5
+#openafs-kpasswd
+	# network information services
+nis			# yields user information from rrzk server
+				# nis is critical for AFS login
+ntp			# synchronises system time with a server
+ntpdate
+
+#==============================================================================
+# Pluggable Authentification Modules (AFS authentification upon Unix login etc.)
+PACKAGES install
+libpam-afs-session      # Module to set up PAG and obtain AFS tokens
+libpam-krb5             # PAM Module for MIT Kerberos   
+libpam-mount            # Module to mount volumes for users
+libpam-openafs-kaserver # Module for existing sites using AFS kaserver for auth

@@ -9,3 +9,6 @@
 ##  - NIS (yptest, nsswitch)    ##
 ##  - Custom patch for AFS      ##
 ##################################
+
+# Currently there are no variables needed for the installation of AFS.
+# This file exists only for completeness.

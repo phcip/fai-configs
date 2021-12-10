@@ -1,0 +1,12 @@
+#! /bin/bash
+# use updated AFS repository
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+$ROOTCMD add-apt-repository ppa:openafs/stable
+$ROOTCMD apt update
+$ROOTCMD apt upgrade
+$ROOTCMD apt install openafs-client openafs-modules-dkms openafs-krb5 krb5-user krb5-config
+
+
+exit $error
