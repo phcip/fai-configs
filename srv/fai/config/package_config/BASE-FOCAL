@@ -60,7 +60,7 @@ consolekit              # system daemon for tracking logged in users an their in
                         # LightDM needs this package to
 nfs-common
 
-gdm3-
+gdm3
 lightdm
 lightdm-gtk-greeter
 #unity-greeter
@@ -70,6 +70,7 @@ gvfs							# important!
 
 # Ubuntu GNOME
 #ubuntu-gnome-desktop
+ubuntu-desktop-minimal
 ubuntu-desktop
 gnome-themes-extra
 adwaita-icon-theme-full
