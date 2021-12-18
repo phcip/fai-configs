@@ -1,0 +1,3 @@
+gdm3 shared/default-x-display-manager  select lightdm
+lightdm shared/default-x-display-manager select lightdm
+lightdm lightdm/daemon_name string /usr/sbin/lightdm

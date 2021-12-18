@@ -70,6 +70,8 @@ greybird-gtk-theme
 dbus-x11						# important!
 gvfs							# important!
 
+software-properties-common #add-apt-repository
+
 # Ubuntu GNOME
 #ubuntu-gnome-desktop
 ubuntu-desktop
