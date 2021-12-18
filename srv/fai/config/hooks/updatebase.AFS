@@ -1,7 +1,13 @@
 #! /bin/bash
 
+# make sure the ubuntu repositories are available at this point
+$ROOTCMD bash -c 'apt -y update'
+
+ # make sure add-apt-repository is available at this point
+$ROOTCMD bash -c 'DEBIAN_FRONTEND=noninteractive apt -yq install software-properties-common'
+
 # adds the AFS ppa repository before installing the packages
-$ROOTCMD add-apt-repository -y ppa:openafs/stable
-$ROOTCMD apt -y update
+$ROOTCMD bash -c 'add-apt-repository -y ppa:openafs/stable'
+$ROOTCMD bash -c 'apt -y update'
 
 exit 0
