@@ -1,0 +1,5 @@
+#!/bin/bash
+
+gsettings set org.gnome.shell enabled-extensions "['lockscreen@sri.ramkrishna.me', 'logoutbutton@mike10004.github.com', 'hide-shutdown-button@adrienpoupa.github.com', 'datetime-format']"
+
+exit 0

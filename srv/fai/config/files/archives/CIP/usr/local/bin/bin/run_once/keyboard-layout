@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Set default keyboard layouts
+
+### Keyboard layouts
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'de')]"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Primary>space']"
+gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "['<Primary><Shift>space']"

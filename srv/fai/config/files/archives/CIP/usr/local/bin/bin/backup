@@ -1,0 +1,28 @@
+#!/bin/bash
+
+#Skript um Dateien aus dem Backup wiederherzustellen
+
+
+echo "Wie heißt die wiederherzustellende Datei/Ordner?"
+
+read name
+
+list=$(find .oldfiles/  -name "$name" 2>/dev/null) #list gibt eine Liste mit den gefundenen Dateien/Ordnern im Backup
+
+echo "Bitte die gewünschte Nummer angeben"
+count=$(echo "$list" | wc -l)	#count zählt die Anzahl der Zeilen in der Datei list
+for ((i=1; i<="$count"; i++)); do	#For Schleife nummeriert die Ausgabe für den Benutzer
+	cut=$(echo "$list" | head -n "$i" | tail -n 1)	#cut schneidet die Liste so, dass die Zeilen einzelnd ausgegeben werden können
+	echo "$i $cut"	#Ausgabe der Nummerierung und der beschnittenen Liste
+done
+
+read number
+file=$(echo "$list" | head -n "$number" | tail -n 1) #beschneidet die Liste, um die gewünschte Datei zu erhalten
+
+mkdir -p ~/Backup
+cp -r ~/"$file" ~/Backup/
+
+
+thunar ~/Backup #thunar öffnet den Dateimanager im Ordner Backup
+~                                                                                                                                                                                                                  
+~                               

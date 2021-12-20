@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Set default theme
+
+THEME="Numix"
+THEME_PACKAGE="numix-gtk-theme"
+
+ICON_THEME="Numix"
+ICON_THEME_PACKAGE="numix-icon-theme"
+
+if dpkg -l | grep -q "$THEME_PACKAGE"; then
+	gsettings set org.gnome.desktop.interface gtk-theme "$THEME" &> /dev/null
+	gsettings set org.gnome.desktop.wm.preferences theme "$THEME" &> /dev/null
+	gsettings set org.gnome.Terminal.Legacy.Settings theme-variant 'dark' &> /dev/null
+fi
+
+if dpkg -l | grep -q "$ICON_THEME_PACKAGE"; then
+	gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME" &> /dev/null
+fi
+
+exit 0

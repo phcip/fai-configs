@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# CIP user space configuration script
+
+logfile="/dev/null"
+
+# clean up user home directory and cache
+rm -f ~/.icedove/*.default/.parentlock &> "$logfile"
+rm -f ~/.mozilla/firefox/*.default/.parentlock &>> $logfile
+rm -rf ~/.mozilla/firefox/*.default/urlclassifier3.sqlite &>> $logfile
+rm -f ~/.mozilla/firefox/*.default/places.sqlite.corrupt &>> $logfile
+rm -rf ~/.thunderbird/*.default/{crashes,datareporting,minidumps} &>> $logfile
+rm -rf ~/.kde &>> $logfile
+rm -rf ~/.kde4 &>> $logfile
+
+# clean up the guest directory
+[[ $USER == "guest" ]] && rm -rf /home/guest/*
+
+if [[ $USER != "shk" && $USER != "guest" ]]; then
+
+	# check AFS quota
+	quota_percentage=$(fs q | cut -d '%' -f1)
+	notify-send -i harddrive "   $quota_percentage% of storage used   "
+
+	# setting up default user configuration
+	if [[ $quota_percentage -le 80 ]]; then
+
+		# scan software configuration
+		cp /etc/skel/.gscan2pdf ~/.gscan2pdf &>> $logfile
+		mkdir -p ~/.sane/xsane && cp /etc/skel/.sane/xsane/Canon:CanoScanLiDE25.drc ~/.sane/xsane/Canon:CanoScanLiDE25.drc &>> $logfile
+
+		# user-space firefox options
+		if [[ -f /etc/firefox/handlers.json ]]; then
+			cp ~/.mozilla/firefox/*.default/handlers.{json,json.save} &>> $logfile
+			cp /etc/firefox/handlers.json ~/.mozilla/firefox/*.default/ &>> $logfile
+		fi
+		
+	fi
+
+fi
+
+exit 0

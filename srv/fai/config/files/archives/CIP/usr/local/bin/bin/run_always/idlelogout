@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# logout after 30*60*1000 milliseconds = 30 minutes
+TIMER=1800000
+USER="$(whoami)"
+
+while true; do 
+	IDLE=$(xprintidle)
+	if (( $IDLE > $TIMER ))
+	then
+		pkill -u "$USER"
+	fi
+done

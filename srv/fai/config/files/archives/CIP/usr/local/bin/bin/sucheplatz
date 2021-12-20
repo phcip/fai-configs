@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Lists biggest files and directories in the user directory sorted by size
+
+# Minimal file size
+minsize="5M"
+
+# Number of found items to show
+num=5
+
+# Set highlighting color
+#export GREP_COLOR=36
+
+echo
+
+echo "Die größten $num $(tput setaf 2)Dateien$(tput sgr0) innerhalb dieses Verzeichnisbaums:"
+
+echo 
+
+# List files
+find . -type f -size +"$minsize" -exec du -h {} + 2>/dev/null | grep -vwE ".oldfiles|.cache" | sort -r -h | head -n "$num" | grep -E --color "\.pdf|\.PDF|\.doc|\.png|\.gif|\.rar|\.zip|"
+
+echo
+
+exit 0 

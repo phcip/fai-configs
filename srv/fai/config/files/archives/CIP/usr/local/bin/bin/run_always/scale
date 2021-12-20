@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Restore scaling factor after using beamer script 
+
+GUI=2
+
+# Make sure gsettings can take effect at all
+export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/ &> /dev/null
+
+gsettings set org.gnome.desktop.interface scaling-factor "$GUI" &> /dev/null
+
+dbus-send --type=method_call --print-reply --dest=org.gnome.Shell /org/gnome/Shell org.gnome.Shell.Eval string:'global.reexec_self()'
+
+exit 0

@@ -1,0 +1,93 @@
+#!/usr/bin/python3
+
+import os, sys, argparse
+from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QTextEdit
+from PyQt5 import QtCore as core
+
+if __name__ == '__main__':
+
+    
+    # Variabelen
+#    name="Günther"
+#    username="ghorst"
+    
+    # CLI option parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('username', type=str, help='Klips-Username')
+    parser.add_argument('name', type=str, help='Full name of user (First and second name)')
+    args = parser.parse_args()
+    username = args.username
+    name = args.name
+
+    # New application instance
+    app = QApplication(sys.argv)
+
+    # CSS styling
+    app.setStyleSheet("QWidget#mainWindow {background-color: #272727; } *[stdUI='1'] {color: #ffe400; font-family: 'Ubuntu Condensed', sans-serif; font-size: 20pt;} QPushButton {border: 1px solid #ffe400; padding: 15px;} QPushButton:hover {background-color: #ffea39; color: #4c4400;}")
+
+    # Parent window
+    w = QWidget()
+    w.setObjectName('mainWindow')
+    w.setWindowTitle('Warnung')
+    w.setWindowFlags(core.Qt.FramelessWindowHint | core.Qt.WindowStaysOnTopHint)
+
+    # Notification label
+    notification = QLabel("Inhalte kopieren und auf der Helpdesk-Seite einsetzen")
+    notification.setProperty("stdUI", 1)
+    notification.setStyleSheet
+    notifLayout = QHBoxLayout()
+    notifLayout.addWidget(notification)
+
+    # Pattern fields to copy from
+    nameField = QTextEdit()
+    mailField = QTextEdit()
+    betreffField  = QTextEdit()
+    nachrichtField = QTextEdit()
+
+    # Field contents
+    nameField.setPlainText(name)
+    mailField.setPlainText(username + "@smail.uni-koeln.de")
+    betreffField.setPlainText("Antrag auf AFS-Speicherplatz erweitern")
+    nachrichtField.setPlainText("Sehr geehrte Damen und Herren,\nhiermit beantrage ich einen größeren AFS- Speicher, da dieser für die Nutzung zu klein ist.\nMit freundlichen Grüßen\n" + name)
+
+    # Make fields read-only
+    for field in [nameField, mailField, betreffField, nachrichtField]:
+        field.setReadOnly(True)
+    
+    # Define horizontal layout for each field
+    nameFieldLayout = QHBoxLayout()
+    mailFieldLayout = QHBoxLayout()
+    betreffFieldLayout = QHBoxLayout()
+    nachrichtFieldLayout = QHBoxLayout()
+
+    nameFieldLayout.addWidget(nameField)
+    mailFieldLayout.addWidget(mailField)
+    betreffFieldLayout.addWidget(betreffField)
+    nachrichtFieldLayout.addWidget(nachrichtField)
+
+    # Button to close the window
+    okButton = QPushButton('Alles klar!', w)
+    okButton.setProperty("stdUI", 1)
+    okButton.clicked.connect(core.QCoreApplication.instance().quit)
+    buttonLayout = QHBoxLayout()
+    buttonLayout.addWidget(okButton)
+
+    # Vertical positioning relative to the window
+    vbox = QVBoxLayout()
+
+        # add widgets to vertical layout
+    for layout in [notifLayout, nameFieldLayout, mailFieldLayout, betreffFieldLayout, nachrichtFieldLayout, buttonLayout]:
+        vbox.addLayout(layout)
+
+    vbox.setSpacing(50)
+
+    # Horizontal positioning of vbox
+    hbox = QHBoxLayout()
+    hbox.addLayout(vbox)
+    hbox.setContentsMargins(150,100,150,100)
+
+    w.setLayout(hbox)
+
+    w.show()
+
+    sys.exit(app.exec_())

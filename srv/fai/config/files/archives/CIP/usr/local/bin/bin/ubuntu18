@@ -1,0 +1,66 @@
+#!/bin/bash
+
+# Dieses Skript verschiebt die Benutzerdaten nach tmp und später wieder zurück. Damit sollen korupte Dateien entsorgt werden
+
+
+echo "Die Daten werden auf das neue System angepasst."
+echo "Dieser Vorgang kann ein paar Minuten dauern"
+
+# Speicher automatisch freimachen, sonst scheitert das Skript
+quota_percentage=$(fs q | cut -d '%' -f1)
+if [[ $quota_percentage -ge 98 ]]; then
+	/usr/local/bin/clean &> /dev/null
+fi
+
+# falls das nicht hilft, abbrechen
+quota_percentage=$(fs q | cut -d '%' -f1)
+if [[ $quota_percentage -ge 98 ]]; then
+	echo "Der Speicher ist voll, bitte zunächst manuell reinigen"
+	echo "Hinweis: 'sucheplatz' ausführen"
+	exit 1
+fi
+
+rm -rf /var/tmp/$USER # würde den Ordner löschen, wenn er vorhanden ist
+mkdir /var/tmp/$USER 
+rm -f .ciprc # löscht zur Vorsicht die ciprc Datei, damit beim nächsten Login eine neue erstellt wird
+
+# kopiert alle Datein des Users (auch . Datein) nach /var/tmp
+if cd $HOME; then
+
+	# slash nach '$HOME' ist wichtig, sonst wird /var/tmp/$USER/$USER erstellt!
+	rsync -rv --exclude=".." --exclude=".oldfiles" $HOME/ /var/tmp/$USER &> /dev/null	
+
+fi
+
+# macht das Verzeichnis des Users leer, damit keine korupten Dateien mehr vorhanden sind
+if cd $HOME; then
+#	rm -rf ./*
+#	rm -rf ./.*
+	find . ! -name '.' ! -name '..' ! -wholename '*.oldfiles*' -type f -exec rm -f {} + &> /dev/null
+	find . ! -name '.' ! -name '..' ! -wholename '*.oldfiles*' -type d -exec rmdir {} + &> /dev/null
+fi
+
+# kopiert die Daten des Users wieder in sein Homeverzeichnis
+if cd $HOME; then
+	
+	# normale Dateien und Verzeichnisse zurueck kopieren
+	if ! cp -rpf /var/tmp/$USER/* ./; then
+		echo
+		echo "Ein Fehler ist beim Wiederherstellen der Dateien aufgetreten."
+		echo "Alle Dateien des Benutzers sind auf diesem Rechner unter /var/tmp/$USER zu finden."
+		echo "Falls im Homeverzeichnis wichtige Dokumente fehlen, bitte diese aus /var/tmp/$USER manuell wiederherstellen."
+		echo "Falls ein Dokument auch dort nicht auffindbar ist, laesst sich die letzte Version davon evtl. unter ~/.oldfiles finden."
+		echo "Hierzu 'cd ~/.oldfiles' ausfuehren und dort manuell nach dem Dokument suchen."
+		echo
+	fi
+
+	# Dotfiles zurueck kopieren
+	for dotfile in .mozilla .ssh .jupyter .filezilla .julia_history .julia .sane .vim .vnc .remmina .TeXworks .java .ipython .gnupg .matlab .matplotlib .ipync_checkpoints .gnuplot_history .fityk .felix .emacs .emacs.d .bluefish .bash_history .Mathematica .gscan2pdf .pki .config/libreoffice .config/texstudio .config/google-chrome .config/chromium .config/evince .config/VirtualBox .config/xfce4 .config/yad.conf;
+	do
+		
+		# zuerst pruefen, ob ueberhaupt existent
+		[[ -e /var/tmp/$USER/$dotfile ]] && cp -rpf "/var/tmp/$USER/$dotfile" ./
+
+	done
+
+fi

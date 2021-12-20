@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Remove old user-space configuration
+
+cd "$HOME" || exit 1
+
+# Items to remove completely
+for ITEM in .cache .compiz .dbus .gnome .gconf .gegl .gnash .gstreamer .gtk .icons .idlerc .nautilus .pulse .themes .thumbnails .thunderbird .update-notifier .adobe .bash_login .bash_logout .login '.logout' .bashrc_old .xsession_old .profile_old .cshrc .environ .env_lib .env_man .env_path .gvfs .xinputrc
+do
+
+	if ls -a "$HOME" | grep -q "$ITEM"
+	then
+
+		rm -rf "$ITEM"*
+
+	fi
+
+done

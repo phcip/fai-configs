@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# dieses Skript löscht die Datei ciprc, in der die Einstellung für das neue System drinstehen
+cd $HOME &&   rm -f .ciprc
+
+/usr/local/bin/timewarning-message "Bitte loggen Sie sich erneut ein, damit die Einstellungen zurückgesetzt werden können."   
+

@@ -1,0 +1,185 @@
+#!/bin/bash
+
+# Skript zum einmaligen Erstanmelden der Benutzer im CIP-Pool der Physik
+# Das Einloggen in eine graphische Sitzung funktioniert ohne diese Schritte nicht,
+# weil (vermutlich) die Datei .xsession, bereitgestellt vom RRZK, nicht an unsere
+# heutigen Gegebenheiten passt und eine X11-Sitzung verhindert. 
+
+
+#-------------------------------------------------------------------------------
+# Coloured output using "tput"
+# Usage: put COLOR TEXT
+put () {
+    local reset="$(tput sgr0)"
+    local color="$1"
+    local label="$2"
+    case "$color" in
+        green)  color="$(tput setaf 2)" ;;
+        red)    color="$(tput setaf 1)" ;;
+        blue)   color="$(tput setaf 4)" ;;
+        *)	color="" ;;
+    esac
+		tput bold
+    echo "${color}$2${reset}"
+}
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# File with current RRZK user data
+# This file gets updated every hour by an entry in /etc/crontab
+users="/usr/share/rrzk_user_list"
+#-------------------------------------------------------------------------------
+
+URL="https://rrzk.uni-koeln.de/kontakt-helpdesk.html"
+
+#-------------------------------------------------------------------------------
+# Main function to register a new user
+erstanmeldung () {
+
+# Get user name from first argument
+local user="$1"	
+
+if [[ $users_db_exist = "yes" ]]; then
+	# Show SSH password hint if username checked
+	echo "$(tput bold)$(tput setaf 4)   Hinweis: $(tput sgr0)Die Meldung \"Permission denied, please try again.\" erscheint nur bei einer falschen Passworteingabe."
+	echo
+	echo "            Bitte überprüfe sorgfältig die Passwort-Symbole und stelle sicher, dass sie den Tasten der Tastatur auch entsprechen."
+fi
+
+echo
+
+# Start an SSH-Session with RRZK-AFS-Server
+# Execute following commands in the user shell environment
+ssh "$user@dialog.rrz.uni-koeln.de" '
+
+echo
+
+#--------------------------------------
+echo "   Aktualisiere die Benutzerumgebung... "
+for dotfile in ~/{.xsession,.bashrc,.profile}; do
+    [[ -f $dotfile ]] && mv "$dotfile" "$dotfile"_old #alte .profile verhindert die Anmeldung, deswegen wird sie verschoben
+done
+#--------------------------------------
+
+echo
+
+#--------------------------------------
+ #   Räume auf..."
+for firefox_clutter in ~/.mozilla/firefox/*.default/{crashes,datareporting,minidumps,saved-telemetry-pings,places.sqlite.corrupt}; do
+    if [[ -d $firefox_clutter ]]; then
+        rm -r "$firefox_clutter"
+    elif [[ -f $firefox_clutter ]]; then
+        rm -f "$firefox_clutter"
+    fi
+done
+
+rm -rf ~/.kde
+rm -rf ~/.kde4
+
+AFS_QUOTA=$(fs lq | tail -n 1 | tr -s " " | cut -d " " -f2)
+
+echo
+
+echo "   $USER hat $AFS_QUOTA an AFS-Speicher" | tee -a /var/tmp/afs.quota 
+
+echo
+
+#--------------------------------------
+
+echo
+
+'
+}
+#-------------------------------------------------------------------------------
+
+echo 
+
+#-------------------------------------------------------------------------------
+# CIP employee password prompt
+read -p "SHK-Passwort: " -s pass
+ 
+echo    # Newline
+
+# Generate hash from the input
+hash="$(echo "$pass" | openssl dgst -sha256)"
+ 
+# Hash of the original password
+orig_hash="(stdin)= a2d3f9498d948533b2d73c253292b2277a7bde76cda7b474269c49d0744e6a5b"
+
+# Compare generated and original hashes
+if [[ ! $hash = $orig_hash ]]; then 
+	echo
+	put red "   E: Falsches Passwort, bitte versuche es erneut."
+	echo
+	exit 1
+fi
+#-------------------------------------------------------------------------------
+
+echo
+
+#-------------------------------------------------------------------------------
+# Prompt for a username of the new CIP user
+read -p "Benutzername / Kürzel von Klips (Beispiel: mmusterm): " name
+
+# Empty input is not allowed
+if [[ -z $name ]]; then 
+	echo
+	put red "   E: Benutzername fehlt!"
+	echo
+	exit 1
+fi
+#-------------------------------------------------------------------------------
+
+echo
+
+#-------------------------------------------------------------------------------
+# Lookup a username in a RRZK databank
+if [[ -f $users ]]; then
+	
+	# This parameter gets evaluated in the "erstanmeldung" function
+	users_db_exist="yes"
+
+	# Check if the username is in the RRZK database 
+	if grep -w "$name" "$users" &> /dev/null; then
+		put green "   Benutzer \"$name\" ist beim RRZK registriert."
+	else 
+		put red "   E: Benutzer \"$name\" konnte nicht gefunden werden!"
+		echo
+		echo "   Bitte Benutzername überprüfen und ggf. das RRZK kontaktieren."
+		echo
+		echo "   Siehe auch: $(tput bold) $(tput setaf 4)https://rrzk.uni-koeln.de/accounts.html$(tput sgr0) (Ctrl + Click zum Öffnen im Browser)"
+		echo
+		exit 1 
+	fi
+else
+	users_db_exist="no"
+
+	put red "   E: Benutzerliste nicht gefunden!"
+	echo
+	echo "   Der Benutzer-Eintrag in der RRZK-Datenbank kann nicht nachgewiesen werden."
+	echo
+	echo "   Erstanmeldung wird trotzdem initiiert."
+	echo
+	echo "   Bitte dieses Problem dem Admin-Team unter ph-cip@uni-koeln.de melden."
+	echo
+fi
+#-------------------------------------------------------------------------------
+
+echo
+
+#-------------------------------------------------------------------------------
+# Register the new user
+if erstanmeldung "$name"; then
+	echo "   ---"
+	echo
+	put green "   Erstanmeldung erfolgreich!"
+	echo
+
+	# user=$(grep -w "$name" /usr/share/rrzk_user_list | sort -u | cut -d ':' -f5)
+	# rrzk-afs-message "$name" "$user" &	
+	# firefox "$URL" &
+	
+	exit 0
+fi
+#-------------------------------------------------------------------------------

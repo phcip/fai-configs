@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# dieses Skript kompiliert eine Datei neu und somit wird versucht diese Datei druckbar zu machen
+
+set -x
+cd $HOME
+echo "Bitte geben Sie hier den vollständigen Dateinamen an"
+echo "(Endung nicht vergessen)"
+read Datei
+if echo $Datei | grep -q ".pdf"; then
+	gs -sOutputFile=Datei_final.pdf -sDEVICE=pdfwrite -sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray -dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH $Datei
+	evince Datei_final.pdf 
+
+else
+	convert -density 500 $Datei Datei_new.pdf
+	gs -sOutputFile=Datei_final.pdf -sDEVICE=pdfwrite -sColorConversionStrategy=Gray -dProcessColorModel=/DeviceGray -dCompatibilityLevel=1.4 -dNOPAUSE -dBATCH Datei_new.pdf
+	evince Datei_final.pdf 
+fi

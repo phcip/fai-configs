@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# CIP script to show warning at specific times
+
+# show time
+evening="1845"
+
+# message
+sendMsg () {
+	/usr/local/bin/timewarning-message "$1"
+}
+
+# infinite loop checking current time
+while true; do 
+	
+	# Get current time in hhmm format
+	time=$(date +%H%M)	
+
+	# Get current day of week
+	dow=$(date +%u)
+
+	# Send message at the right time
+	if [[ $time == "$evening" ]]; then
+		sendMsg "CIPLab wird um 19:00 geschlossen!"
+		sleep 70
+	fi
+
+	# im SS wieder freischalten
+		
+:'
+	# Computer physics
+	case "$dow" in
+		
+		3)		# Wednesday
+		case "$time" in
+			1155|1355|1555)
+				sendMsg "!!!In 5 Minuten startet eine Computerphysik Übung!!!<br><br>Bitte achtet während der Übung auf Eure Gesprächslautstärke<br><br>Während der nächsten 1,5 Stunden wird deswegen der Drucker nicht zur Verfügung stehen."
+				sleep 70
+				;;
+		esac
+		;;
+
+		4)		# Thursday
+		case "$time" in
+			1400|1600)
+				sendMsg "Eine Computerphysik-Übung ist gestartet!<br><br>Bitte achtet auf Eure Gesprächslautstärke!<br><br>Druckaufträge werden während der Übung abgelehnt."
+				sleep 70
+				;;
+		esac
+		;;
+
+		5)		# Friday
+		case "$time" in
+			1000|1200|1400)
+				sendMsg "Eine Computerphysik-Übung ist gestartet!<br><br>Bitte achtet auf Eure Gesprächslautstärke!<br><br>Druckaufträge werden während der Übung abgelehnt."
+				sleep 70
+				;;
+		esac
+		;;
+
+	esac
+'
+
+done

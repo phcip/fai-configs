@@ -1,0 +1,57 @@
+#!/usr/bin/python3
+
+import os, sys, argparse
+from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QPushButton, QLabel, QHBoxLayout, QVBoxLayout
+from PyQt5 import QtCore as core
+
+if __name__ == '__main__':
+
+    # CLI option parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('msg_arg', type=str, help='Text message to show')
+    args = parser.parse_args()
+    message = args.msg_arg
+
+    # New application instance
+    app = QApplication(sys.argv)
+
+    # CSS styling
+    app.setStyleSheet("QWidget#mainWindow {background-color: #272727; } *[stdUI='1'] {color: #ffe400; font-family: 'Ubuntu Condensed', sans-serif; font-size: 20pt;} QPushButton {border: 1px solid #ffe400; padding: 15px;} QPushButton:hover {background-color: #ffea39; color: #4c4400;}")
+
+    # Parent window
+    w = QWidget()
+    w.setObjectName('mainWindow')
+    w.setWindowTitle('Warnung')
+    w.setWindowFlags(core.Qt.FramelessWindowHint | core.Qt.WindowStaysOnTopHint)
+
+    # Notification label
+    notification = QLabel(message)
+    notification.setProperty("stdUI", 1)
+
+    notification.setStyleSheet
+    notifLayout = QHBoxLayout()
+    notifLayout.addWidget(notification)
+
+    # Button to close the window
+    okButton = QPushButton('Alles klar!', w)
+    okButton.setProperty("stdUI", 1)
+    okButton.clicked.connect(core.QCoreApplication.instance().quit)
+    buttonLayout = QHBoxLayout()
+    buttonLayout.addWidget(okButton)
+
+    # Vertical positioning relative to the window
+    vbox = QVBoxLayout()
+    vbox.addLayout(notifLayout)
+    vbox.addLayout(buttonLayout)
+    vbox.setSpacing(300)
+
+    # Horizontal positioning
+    hbox = QHBoxLayout()
+    hbox.addLayout(vbox)
+    hbox.setContentsMargins(150,100,150,100)
+
+    w.setLayout(hbox)
+
+    w.show()
+
+    sys.exit(app.exec_())

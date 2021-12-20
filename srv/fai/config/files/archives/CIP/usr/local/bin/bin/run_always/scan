@@ -1,0 +1,72 @@
+#!/bin/bash
+# interaktives Scanprogramm für die Benutzer
+
+ret2=0
+i=1
+a=/tmp/$USER/scan
+rm -rf /tmp/$USER/scan
+mkdir -p /tmp/$USER/scan
+
+while true; do
+	if sane-find-scanner -q | grep "found USB scanner"; then
+		if [[ $connected != "yes" ]]; then
+			simple-scan && connected=yes
+		fi	
+	else
+		connected=no
+		sleep 1;
+	fi
+done
+
+connected=no
+
+
+exit 0
+
+:'
+
+# Benutzeroberfläche mit YAD erstellen
+
+yad --width=80 --height=60 --title="CIP-Scan" --text="Was möchten Sie mit ihrer Datei machen?" --button="Ich möchte scannen und drucken" --button="Ich möchte nur scannen" 
+ret=$?
+if [[ $ret == 0 ]]
+then
+	while (( ret2 == 0 || ret2 == 1 ))
+	do	
+		yad --width=80 --height=60 --title="CIP-Scan" --text="Wählen Sie eine der folgenden Optionen:" --button="Einscannen einer gedruckten Seite":0 --button="Einscannen einer handgeschriebenen Seite":1 --button="PDF zum drucken vorbereiten":2
+		ret2=$?
+		if [[ $ret2 == 0 || $ret2 == 1 ]]
+		then
+			if [[ $ret2 == 1 ]]
+			then
+			 scanimage --mode Lineart -x 210 -y 297 --batch="/$a/scan$i.pnm"  --batch-count 1  -p | yad --center --window-icon="scanner"  --title "CIP-Scan" --text="Es wird gescannt" --progress  --pulsate --auto-close --no-buttons
+			 convert /$a/scan$i.pnm -page A4 $a/scan$i.pdf 
+			fi
+			if [[ $ret2 == 0 ]]
+			then
+			scanimage --batch="/$a/scan$i.pnm"  --batch-count 1  --resolution 250 -x 210 -y 297  -p | yad --center --window-icon="scanner"  --title "CIP-Scan" --text="Es wird gescannt" --progress  --pulsate --auto-close --no-buttons 
+			convert /$a/scan$i.pnm -page A4 /$a/scan$i.pdf
+			fi
+			evince "$a/scan$i.pdf" &> /dev/null
+			yad --width=80 --height=60 --title="CIP-Scan" --text="Möchten Sie diese Seite behalten?" --button="ja" --button="nein"
+			ret3=$?
+			if [[ $ret3 == 1 ]]
+			then
+				rm -r $a/scan$i.pdf
+				i=$(( $i - 1 ))
+			fi
+		fi
+		i=$(( $i + 1 ))
+	done
+	convert $a/*.pdf scan.pdf
+	evince "scan.pdf" &> /dev/null
+
+
+else
+	simple-scan &
+	exit
+fi
+ 
+#Probleme:` Abbruch der Schleife bei Start des Programms; wenn Stecker gezogen wird beim Scannen -> leeres Dokument wird erstellt
+
+'

@@ -1,0 +1,74 @@
+#!/bin/bash
+#bei  run_once scale ausprobieren, falls das nicht lauft
+
+# Enable/disable monitor & beamer mirroring
+
+# DPI values
+beamer_dpi=100
+desktop_dpi=180
+
+# misc xfconf values
+desktop_panel_size=48
+desktop_cursor_size=48
+desktop_theme="Default-xhdpi"
+beamer_panel_size=24
+beamer_cursor_size=24
+beamer_theme="Greybird"
+
+beamer_resolution="1024x768"
+
+# Dotfile to contain beamer mode parameter
+beamerrc="/tmp/.beamerrc-$(whoami)"
+
+# Read the file
+if [[ -f $beamerrc ]]; then
+	source "$beamerrc"
+else
+	echo "CIP_BEAMER_MODE=0" > "$beamerrc"
+fi
+
+# Get xrandr 'output' labels
+# !!! These queries could stop working after upgrading xrandr or switching ports !!!
+# In that case check xrandr output, e. g. DP1 <-> DP-1 and so on.
+monitor=$(xrandr | grep -w connected | grep DP | cut -f1 -d ' ')
+beamer=$(xrandr | grep -w connected | grep HDMI | cut -f1 -d ' ')
+
+# Default mode: Main monitor at full resolution, beamer attached from right
+beamer_off () {
+	xrandr --output "$monitor" --auto --output "$beamer" --below "$monitor"
+	sed -i 's/CIP_BEAMER_MODE=.*/CIP_BEAMER_MODE=0/g' "$beamerrc"
+#	xfconf-query -c xsettings -p /Xft/DPI --create --type int --set "$desktop_dpi" &> /dev/null
+#	xfconf-query -c xfce4-panel -p /panels/panel-0/size --create --type int --set "$desktop_panel_size" &> /dev/null
+#	xfconf-query -c xsettings -p /Gtk/CursorThemeSize --create --type int --set "$desktop_cursor_size" &> /dev/null
+#	xfconf-query -c xfwm4 -p /general/theme --create --type string --set "$desktop_theme" &> /dev/null
+}
+
+# Beamer mode: Both screens at beamer resolution
+beamer_on () {
+	xrandr --output "$monitor" --mode "$beamer_resolution" --output "$beamer" --same-as "$monitor"
+	sed -i 's/CIP_BEAMER_MODE=.*/CIP_BEAMER_MODE=1/g' "$beamerrc"
+#	xfconf-query -c xsettings -p /Xft/DPI --create --type int --set "$beamer_dpi" &> /dev/null
+#	xfconf-query -c xfce4-panel -p /panels/panel-0/size --create --type int --set "$beamer_panel_size" &> /dev/null
+#	xfconf-query -c xsettings -p /Gtk/CursorThemeSize --create --type int --set "$beamer_cursor_size" &> /dev/null
+#	xfconf-query -c xfwm4 -p /general/theme --create --type string --set "$beamer_theme" &> /dev/null
+	notify-send --expire-time=7000 'Firefox inkorrekt angezeigt?' 'Schließen und wieder öffnen hilft!' --icon=dialog-information
+}
+
+#------------------------------------------------------------------------------
+# Choose action and execute
+case "$CIP_BEAMER_MODE" in
+
+	1)	# Beamer was on, turn it off and reset main monitor
+		beamer_off
+		rm "$beamerrc"
+		;;
+
+	*)	# Beamer was off, turn it on and mirror displays
+		# This is the default option for a newly started script
+		beamer_on
+		;;
+
+esac
+#------------------------------------------------------------------------------
+
+exit 0

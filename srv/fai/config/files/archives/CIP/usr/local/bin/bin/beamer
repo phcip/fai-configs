@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Enable/disable monitor & beamer mirroring
+
+# DPI values
+beamer_dpi=100
+desktop_dpi=180
+
+# misc xfconf values
+desktop_panel_size=48
+desktop_cursor_size=48
+desktop_theme="Default-xhdpi"
+beamer_panel_size=24
+beamer_cursor_size=24
+beamer_theme="Greybird"
+
+beamer_resolution="1024x768"
+
+# Dotfile to contain beamer mode parameter
+beamerrc="/tmp/.beamerrc-$(whoami)"
+
+# Read the file
+if [[ -f $beamerrc ]]; then
+	source "$beamerrc"
+else
+	echo "CIP_BEAMER_MODE=0" > "$beamerrc"
+fi
+
+# Get xrandr 'output' labels
+# !!! These queries could stop working after upgrading xrandr or switching ports !!!
+# In that case check xrandr output, e. g. DP1 <-> DP-1 and so on.
+monitor=$(xrandr | grep -w connected | grep DP | cut -f1 -d ' ')
+beamer=$(xrandr | grep -w connected | grep HDMI | cut -f1 -d ' ')
+
+change_scaling () {
+	
+	scaling_factor="$1"
+	text_scaling_factor="$2"
+	cursor_size="$3"
+
+	export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/ &> /dev/null
+	gsettings set org.gnome.desktop.interface scaling-factor $scaling_factor &> /dev/null
+	gsettings set org.gnome.desktop.interface text-scaling-factor $text_scaling_factor &> /dev/null
+	gsettings set org.gnome.desktop.interface cursor-size $cursor_size &> /dev/null
+}
+
+# Default mode: Main monitor at full resolution, beamer attached from right
+beamer_off () {
+
+	# Reihenfolge wichtig!
+	
+	# Zuerst Skalierung ändern
+	change_scaling "1" "1" "36"
+
+	# dann die Auflösung
+	xrandr --output "$monitor" --auto --output "$beamer" --below "$monitor"
+
+	sed -i 's/CIP_BEAMER_MODE=.*/CIP_BEAMER_MODE=0/g' "$beamerrc"
+}
+
+# Beamer mode: Both screens at beamer resolution
+beamer_on () {
+
+	# Reihenfolge wichtig!
+	
+	# Zuerst Skalierung ändern 
+	change_scaling "1" "1.15" "24"
+
+	# dann die Auflösung
+	xrandr --output "$monitor" --mode "$beamer_resolution" --output "$beamer" --same-as "$monitor"
+
+	sed -i 's/CIP_BEAMER_MODE=.*/CIP_BEAMER_MODE=1/g' "$beamerrc"
+	notify-send --expire-time=7000 'Firefox inkorrekt angezeigt?' 'Schließen und wieder öffnen hilft!' --icon=dialog-information
+}
+
+#------------------------------------------------------------------------------
+# Choose action and execute
+case "$CIP_BEAMER_MODE" in
+
+	1)	# Beamer was on, turn it off and reset main monitor
+		beamer_off
+		rm "$beamerrc"
+		;;
+
+	*)	# Beamer was off, turn it on and mirror displays
+		# This is the default option for a newly started script
+		beamer_on
+		;;
+
+esac
+#------------------------------------------------------------------------------
+
+exit 0

@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# start user-space background scripts
+
+DIR_ALWAYS="/usr/local/bin/run_always"
+DIR_ONCE="/usr/local/bin/run_once"
+SCRIPTS="$(ls $DIR_ALWAYS)"
+SCRIPTS_ONCE="$(ls $DIR_ONCE)"
+CIP_RC_FILE="$HOME/.ciprc"
+
+if [[ ! -f $CIP_RC_FILE ]]; then
+	echo "CIP_FIRST_RUN=yes" > "$CIP_RC_FILE"
+fi
+
+source "$CIP_RC_FILE"
+
+if [[ $CIP_FIRST_RUN == "yes" ]]; then
+
+	rm -f "$HOME/.config/dconf/user"
+
+	#	/usr/local/bin/autoclean
+
+	# check user AFS quota
+	if [[ ! -f /var/tmp/$USER.quota ]]; then
+		date > "/var/tmp/$USER.quota"
+		fs lq >> "/var/tmp/$USER.quota"
+	fi
+
+	# make sure gsettings can write into dconf database
+	chown "$USER":smail "$HOME/.config/dconf" -R
+	chmod u+w "$HOME/.config/dconf" -R
+	
+	# execute scripts in directory
+	for script in ${SCRIPTS_ONCE[@]}; do	
+		
+		# prepend full path
+		script="$DIR_ONCE/$script"
+		
+		# check if exists and execute
+		[[ -f $script ]] && "$script" &
+		
+	done
+
+	echo "CIP_FIRST_RUN=no" > "$CIP_RC_FILE"
+
+	sleep 7 && notify-send 'New login required' 'Please logout and login again to enable interface scaling'
+
+fi
+
+# main loop
+for script in ${SCRIPTS[@]}; do
+
+	# prepend full path
+	script="$DIR_ALWAYS/$script"
+
+	# check if exists and execute
+	[[ -f $script ]] && "$script" &
+
+done
+
+exit 0
+# no "exit" command here!

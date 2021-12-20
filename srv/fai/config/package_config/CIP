@@ -9,3 +9,17 @@
 ##      - ubuntu18/20           ##
 ##      - ...                   ##
 ##################################
+
+# Miscellanneous software
+exfat-fuse		    # FAT utilities
+exfat-utils
+acpi-support        # needed for WakeOnLan, you can also try pm-utils
+yad                 # used in /usr/local/bin/scan script
+xprintidle          # get X11 idle time
+tree                # console tree view
+firefox
+rsyslog
+guake
+#git
+#tilda
+#cups-tea4cups      # CUPS advanced administration interface

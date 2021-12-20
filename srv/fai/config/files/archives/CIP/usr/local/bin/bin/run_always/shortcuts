@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Set global keyboard shortcuts
+
+# Set another shortcut for standard logout with prompt
+gsettings set org.gnome.settings-daemon.plugins.media-keys logout '<Ctrl><Alt><Shift>Delete'
+
+### Quick logout without prompt
+gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ name "fast-logout"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ command "gnome-session-quit --no-prompt"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/ binding "<Ctrl><Alt>Delete"
+
+### Beamer switch
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ name "toggle-beamer"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ command "/usr/local/bin/beamer"
+gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/ binding "<Ctrl><Shift>b"
+
+### Screen lock
+gsettings set org.gnome.settings-daemon.plugins.media-keys screensaver '<Ctrl><Alt>l'
+
+### Window cycling
+gsettings set org.gnome.desktop.wm.keybindings cycle-windows "['<Alt>Tab']"
+gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Super>Tab']"
+
+### Volume control
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-up '<Alt>Up'
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-down '<Alt>Down'
+gsettings set org.gnome.settings-daemon.plugins.media-keys volume-mute '<Alt>m'

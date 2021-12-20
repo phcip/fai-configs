@@ -1,0 +1,72 @@
+#!/bin/bash
+# interaktives Skript um Speicherplatz freizumachen
+
+# Funktion, die überprüft ob der Speicher unter 90% ist
+speicher () {
+	sp=$(fs q | cut -f1 -d "%")
+	if (( sp < 90 )); then
+		echo		
+		echo "Speicherplatz liegt bei unter 90%"
+		exit
+	fi	}
+
+echo "Speicherplatz liegt bei $(fs q | cut -f1 -d "%")%"
+
+echo
+
+echo "Cache wird geleert..."
+
+# Löschen von allen unproblematischen Ordnern/Datein, die keine Einschränkung für den Benutzer bedeuten
+rm -rf .cache/*
+rm -rf ~/.Mathematica # kann ohne Probleme gelöscht werden, da es beim nächsten Start von Mathematica neu erstellt wird
+rm -rf ~/.kde
+rm -rf ~/.kde4
+rm -rf ~/.mozilla/firefox/*.default/Cache
+rm -f ~/.mozilla/firefox/*.default/urlclassifier3.sqlite
+rm -rf ~/.mozilla/firefox/Crash*
+rm -f ~/.Xauthority # kann das Login verhindern, wird dann neu generiert
+
+speicher
+
+echo
+echo "Die größten Dateien werden jetzt gesucht..."
+echo 
+echo "------------------------------------"
+echo
+list=$(find . -type f -size +5M -exec du -h {} + 2>/dev/null | grep -vwE ".oldfiles|.cache" | sort -r -h )
+for row in {1..10}; do
+file=$(echo "$list" | head -n "$row" | tail -n 1)
+path=$(echo $file | cut -f2 -d ' ' )  
+echo "Darf diese Datei gelöscht werden?[ja/nein]"
+echo "$file" |  grep -E --color "\.pdf|\.PDF|\.doc|\.png|\.gif|\.rar|\.zip|"
+read ant
+case $ant in
+        yes|y|Yes|Y|ja|Ja|j|J) 
+                rm -f "$path" ;;
+esac
+
+speicher
+
+echo
+echo "-----------------------------------"
+echo
+done
+
+
+# Löscht die History vom Benutzer (fragt aber nach, ob das in Ordnung ist)
+#echo "Ihr Speicherplatz ist überfüllt und muss gereinigt werden!"
+#echo "Darf die History/der Verlauf im Browser gelöscht werden?[ja/nein]"
+
+#read history 
+#case $history in
+#	yes|y|Yes|Y)
+#		echo "Lösche history"	;;
+#esac
+
+#speicher
+
+echo "Bitte gehen Sie zur Aufsicht"
+
+		
+	
+	 
