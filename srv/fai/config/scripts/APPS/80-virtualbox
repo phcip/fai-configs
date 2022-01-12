@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# installiert MS Visual Studio Code (open source version)
+# Quelle: https://code.visualstudio.com/docs/?dv=linux32_deb
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+file="virtualbox-6.1_6.1.30-148432_amd64.deb"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/$file $target/tmp/
+
+# Installation ausfuehren
+$ROOTCMD apt install /tmp/$file
+#$ROOTCMD dpkg -i /tmp/$file # old
+
+exit $error
