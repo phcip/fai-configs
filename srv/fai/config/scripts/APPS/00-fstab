@@ -1,0 +1,11 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# static entries for removable media in fstab
+ainsl /etc/fstab "/dev/cdrom /media/cdrom	auto	users,noauto	0 0"
+ainsl /etc/fstab "#"
+ainsl /etc/fstab "# Mirror mount from NFS server"
+ainsl /etc/fstab "$server:$mirrorpath $mountpath	nfs	ro,tcp,vers=3	0 0"
+
+exit $error

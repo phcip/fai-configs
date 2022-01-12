@@ -1,0 +1,18 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# Mathematica mount path on clients (symlink target)
+mount="/media/mirror/mathematica"
+
+# Path where symlink is installed
+link="/usr/local/bin/mathematica"
+
+# create symlink from Mathematica mount point
+$ROOTCMD ln -s $mount/Executables/mathematica  $link
+
+# XFCE menu entry will be created using $archives/CIP/usr/share/applications/mathematica
+
+# menu entry points to $link and uses $mount/icon.png as icon
+
+exit $error
