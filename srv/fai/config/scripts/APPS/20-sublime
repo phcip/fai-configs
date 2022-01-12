@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# installiert Sublime Text editor
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# get STABLE build number <BUILD NO> from https://www.sublimetext.com/download
+# download https://download.sublimetext.com/sublime-text_build-<BUILD NO>_amd64.deb
+file="sublime-text_build-4126_amd64.deb"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/$file $target/tmp/
+
+# Installation ausfuehren
+$ROOTCMD apt install /tmp/$file
+#$ROOTCMD dpkg -i /tmp/$file # old
+
+exit $error
