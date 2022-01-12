@@ -1,0 +1,8 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+ainsl	-a	/etc/cups/client.conf	"ServerName zeus.ph-cip.uni-koeln.de"
+chmod 644 $target/etc/cups/client.conf
+
+exit $error
