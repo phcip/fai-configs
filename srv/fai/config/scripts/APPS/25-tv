@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# installiert TV (Kernphysik)
+# TV, libmfile und libsysdep sind aus dem Quellcode kompiliert
+# Quelle: ??? (zeus.ph-cip) (http://www.ikp.uni-koeln.de/src/)
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# Dateinamen
+tv="tv_1.9.13-1_amd64.deb"
+libm="libmfile_1.0.7-1_amd64.deb"
+libsys="libsysdep_20150721-1_amd64.deb"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/tv/$tv $target/tmp/
+cp $FAI/files/tv/$libm $target/tmp/
+cp $FAI/files/tv/$libsys $target/tmp/
+
+# Pakete installieren
+$ROOTCMD dpkg -i /tmp/$libm
+$ROOTCMD dpkg -i /tmp/$tv
+
+exit $error
