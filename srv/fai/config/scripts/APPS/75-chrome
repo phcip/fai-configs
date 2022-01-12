@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Install Google Chrome from .deb package
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+file="chrome.deb"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/$file $target/tmp/
+
+$ROOTCMD apt install /tmp/$file
+#$ROOTCMD dpkg -i /tmp/$file # old
+
+exit $error
