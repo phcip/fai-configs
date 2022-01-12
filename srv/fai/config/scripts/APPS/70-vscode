@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# installiert MS Visual Studio Code (open source version)
+# Quelle: https://code.visualstudio.com/docs/?dv=linux32_deb
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+file="vscode_1.63.2_amd64.deb"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/$file $target/tmp/
+
+# Installation ausfuehren
+$ROOTCMD apt install /tmp/$file
+#$ROOTCMD dpkg -i /tmp/$file # old
+
+exit $error
