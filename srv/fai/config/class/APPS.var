@@ -18,3 +18,8 @@ server=134.95.64.59
 mirrorpath="/opt/mirror"
 # where to mount on the client
 mountpath="/media/mirror"
+
+# path to Julia installation
+juliapath="/opt" # APPS/opt/julia
+julialog="/tmp/fai/julia.log"
+#JULIA_DEPOT_PATH="/usr/share/julia" # add pkg path for julia here

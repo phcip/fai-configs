@@ -1,0 +1,143 @@
+[[LibUV]]
+arch = "aarch64"
+git-tree-sha1 = "40fd539eb9db7a7ea58e4caaf41c5dd5bb6498fb"
+os = "macos"
+
+    [[LibUV.download]]
+    sha256 = "6d622a3facbb4cfbcedc60cc1fa56f2d38b3a85fce21b5fb40b8a8ea6632dab7"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.aarch64-apple-darwin.tar.gz"
+[[LibUV]]
+arch = "aarch64"
+git-tree-sha1 = "8056ff168cdc438a49ed1e1d63325caf813b7fd4"
+libc = "glibc"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "1e5fc7858d2d50f69944e6c6a6eacf6c5b37122e10ad22cf91a389145160b2e3"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.aarch64-linux-gnu.tar.gz"
+[[LibUV]]
+arch = "aarch64"
+git-tree-sha1 = "503f1cc740c74d483fb835fbc5a2a3b3962b10af"
+libc = "musl"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "ee68c1b27e4f07692702458f299f0831737188fd04f801f150f315940dbd8ac3"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.aarch64-linux-musl.tar.gz"
+[[LibUV]]
+arch = "armv6l"
+call_abi = "eabihf"
+git-tree-sha1 = "c15db8dc9cd5a516387b6d0a97f83a48223e09e3"
+libc = "glibc"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "377fe25b2c19b5607f137c2cd4aea7670034e1972fbda54d26dc885b431739c7"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.armv6l-linux-gnueabihf.tar.gz"
+[[LibUV]]
+arch = "armv6l"
+call_abi = "eabihf"
+git-tree-sha1 = "11db524f3e489b6643cff5dbd64920cc819bd3aa"
+libc = "musl"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "26020f944924393cae6a0d7a616c913175357b816d7b35bec8b539befad76b76"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.armv6l-linux-musleabihf.tar.gz"
+[[LibUV]]
+arch = "armv7l"
+call_abi = "eabihf"
+git-tree-sha1 = "157a3569bcb6d0bda7fc4d18d3a29387342e2316"
+libc = "glibc"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "8c5f5c42329860d5d24e0a81125c17d172de42a81840411ee5976398281e72e5"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.armv7l-linux-gnueabihf.tar.gz"
+[[LibUV]]
+arch = "armv7l"
+call_abi = "eabihf"
+git-tree-sha1 = "662f01e0da8cccf303cf20e744fb47974ae36878"
+libc = "musl"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "e379c64c52c4bb65f462a558d0dcb0086f36441ce9b6f1075b8d6e231f88677a"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.armv7l-linux-musleabihf.tar.gz"
+[[LibUV]]
+arch = "i686"
+git-tree-sha1 = "4b71452049ca167a5a3047cc04d387f01d81f04d"
+libc = "glibc"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "3798399f5aefb05aa93e1e723d433721cee4250cd62f79a6050c0fa0ff38ac6e"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.i686-linux-gnu.tar.gz"
+[[LibUV]]
+arch = "i686"
+git-tree-sha1 = "96f414014688b09f4bab22b3ef496b4cabd44cd5"
+libc = "musl"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "8f1680c507d9e6645052cdd16442d2b93600480244106841c4ff9635bb2863cc"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.i686-linux-musl.tar.gz"
+[[LibUV]]
+arch = "i686"
+git-tree-sha1 = "04522e91d2076530f8ebc3735ca054a53b6bfedb"
+os = "windows"
+
+    [[LibUV.download]]
+    sha256 = "c8127bfe7b7ac796d64fa632ccbcaa20bda5beab7d80f9a71e5bbd86812dde75"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.i686-w64-mingw32.tar.gz"
+[[LibUV]]
+arch = "powerpc64le"
+git-tree-sha1 = "95688587b48f2e4f0d53c2863f2d70024218b873"
+libc = "glibc"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "bc6ec1e60247a0ff5e18834a1d89a43ca2e7dd70e7f584b6574eb771bbb70b18"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.powerpc64le-linux-gnu.tar.gz"
+[[LibUV]]
+arch = "x86_64"
+git-tree-sha1 = "bd3da5d85497fcb7b2f60700c0e257c0bcc0b5db"
+os = "macos"
+
+    [[LibUV.download]]
+    sha256 = "2e66c2699f3f8a2695bc1fdd858a6ea039f7e77d745cb3f959824880ab1c648c"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.x86_64-apple-darwin.tar.gz"
+[[LibUV]]
+arch = "x86_64"
+git-tree-sha1 = "963648aefae108e150256d3d40f6d5f78a62458b"
+libc = "glibc"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "5328ba53bc524e53563c3cd624ecd6af0225dc13d3eaf4dff9cf3822b9f69ef3"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.x86_64-linux-gnu.tar.gz"
+[[LibUV]]
+arch = "x86_64"
+git-tree-sha1 = "5b3fc703168c67a9cfff3cd3d18e04cc286ed900"
+libc = "musl"
+os = "linux"
+
+    [[LibUV.download]]
+    sha256 = "c3f9981c041ec9a50f4956f6ac8a323ce87b520a9ca41d2393d92291c3d8a9ac"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.x86_64-linux-musl.tar.gz"
+[[LibUV]]
+arch = "x86_64"
+git-tree-sha1 = "35f7e460094fae080a8f02bc611fc84d4dd97987"
+os = "freebsd"
+
+    [[LibUV.download]]
+    sha256 = "ef01beba69e5f4218b8a57d4114e8b28c7b9647bd4a4c36510672d5e4881870f"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.x86_64-unknown-freebsd.tar.gz"
+[[LibUV]]
+arch = "x86_64"
+git-tree-sha1 = "64f76bc32d55c9016ce3725313ef5de78f43e601"
+os = "windows"
+
+    [[LibUV.download]]
+    sha256 = "32535147abebdc1a253fd6f3a2f45247464077708795cb8f231c0ff7632b143b"
+    url = "https://github.com/JuliaBinaryWrappers/LibUV_jll.jl/releases/download/LibUV-v2.0.1+5/LibUV.v2.0.1.x86_64-w64-mingw32.tar.gz"

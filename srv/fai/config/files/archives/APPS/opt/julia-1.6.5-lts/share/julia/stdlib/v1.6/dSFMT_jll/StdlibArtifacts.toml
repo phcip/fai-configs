@@ -1,0 +1,143 @@
+[[dSFMT]]
+arch = "aarch64"
+git-tree-sha1 = "f3b5cef834745faa87b1c78b1131737c9a5d7e6c"
+os = "macos"
+
+    [[dSFMT.download]]
+    sha256 = "eca859fb13ffdfe44f41957b6682972adb340608e2a13d4994884a5a2074db31"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.aarch64-apple-darwin.tar.gz"
+[[dSFMT]]
+arch = "aarch64"
+git-tree-sha1 = "1d4e741e159a97d242bca8b30a5aa431b6ef3d89"
+libc = "glibc"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "f1cf41b2db0e56fb9862ffd32976b9ed8b778d6c15ce33203d79abcb64f5e58d"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.aarch64-linux-gnu.tar.gz"
+[[dSFMT]]
+arch = "aarch64"
+git-tree-sha1 = "52a4b865fee381c923a730926e071b63a7cd2e80"
+libc = "musl"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "71ab6b93f1091435ea2d2a1bc5e78c6d1b05c7d0deeadacf5283b7711d691dde"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.aarch64-linux-musl.tar.gz"
+[[dSFMT]]
+arch = "armv6l"
+call_abi = "eabihf"
+git-tree-sha1 = "cf3e0abc3c73c8b88a649c5562d6737a80c70383"
+libc = "glibc"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "ebfe4defbf1609e39d0d94e38578785efdb63abb2bf333b985fd21c534707e83"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.armv6l-linux-gnueabihf.tar.gz"
+[[dSFMT]]
+arch = "armv6l"
+call_abi = "eabihf"
+git-tree-sha1 = "ef3f3c643d0d1f6088eaaf4ce197b152ed4654d8"
+libc = "musl"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "afb373168e9ba10e0c85bf3d7daee268c0fa56a01f801d0786329999f770fa9a"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.armv6l-linux-musleabihf.tar.gz"
+[[dSFMT]]
+arch = "armv7l"
+call_abi = "eabihf"
+git-tree-sha1 = "9b863e5ef9bf7177bbf3a728ea7c04f8b55a00de"
+libc = "glibc"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "365155e27c51b9870b2d8dd25b6f1e1f1b2ed9da1a7a3e144ce90d1b1568f4ce"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.armv7l-linux-gnueabihf.tar.gz"
+[[dSFMT]]
+arch = "armv7l"
+call_abi = "eabihf"
+git-tree-sha1 = "0102de56e8200372e1b3f0c81bc93c06af1d53f0"
+libc = "musl"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "2877f3d0f2f45bab164c5b20bd925f33e41827936d87a1f50c0f4d3194732c5b"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.armv7l-linux-musleabihf.tar.gz"
+[[dSFMT]]
+arch = "i686"
+git-tree-sha1 = "aed7588c3b5af79bb0d26ee169fb09b3157a6536"
+libc = "glibc"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "0c9bd3bfb94a3516fcc3604b14cfa02a9e2dfd4b7ab8f0b71bf8e9ff1fd4f80c"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.i686-linux-gnu.tar.gz"
+[[dSFMT]]
+arch = "i686"
+git-tree-sha1 = "2409cf53d56002e1471c4fdb271f1858a066cb04"
+libc = "musl"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "2310defce773131815a29eb2c1719f9f4fc9b6216a05c2b404e6c3bfd14e3618"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.i686-linux-musl.tar.gz"
+[[dSFMT]]
+arch = "i686"
+git-tree-sha1 = "455bedb5148e7940690a3a7bd02fc5ed865dd32d"
+os = "windows"
+
+    [[dSFMT.download]]
+    sha256 = "807f29410230aec68309d2b1787bcda82e2f9b7732eaea0282a09582d45efa72"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.i686-w64-mingw32.tar.gz"
+[[dSFMT]]
+arch = "powerpc64le"
+git-tree-sha1 = "87c6c80e8ea2db808cc46db9c3185cdc00ba9308"
+libc = "glibc"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "4e0113db59f5ecc3772b51f88bed148d86f87fa1220d0ca4bd67057d1bd62fac"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.powerpc64le-linux-gnu.tar.gz"
+[[dSFMT]]
+arch = "x86_64"
+git-tree-sha1 = "ed177be2e85dcef0c4e27a7e92b44dfaba5b6077"
+os = "macos"
+
+    [[dSFMT.download]]
+    sha256 = "c0e98e4d6b7b168740d1027473e935275423bea95b35656e2b81edc2dd7763d8"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.x86_64-apple-darwin.tar.gz"
+[[dSFMT]]
+arch = "x86_64"
+git-tree-sha1 = "4ab1f90c964bd54491bcc709eec6505df17ec29a"
+libc = "glibc"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "a5249c5ca46b103596cdc193c68da328dde79907cdd4fde7ba7287983ead3005"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.x86_64-linux-gnu.tar.gz"
+[[dSFMT]]
+arch = "x86_64"
+git-tree-sha1 = "7203e8d0d249e08f72db3103ed1c0238fcf1fcda"
+libc = "musl"
+os = "linux"
+
+    [[dSFMT.download]]
+    sha256 = "380fc1241afd607e4e17b7e91cd333bb0e802b8124bc301af14f2a3ca4f2326a"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.x86_64-linux-musl.tar.gz"
+[[dSFMT]]
+arch = "x86_64"
+git-tree-sha1 = "72d88b75c72764966b8527b129939fcedc4b565b"
+os = "freebsd"
+
+    [[dSFMT.download]]
+    sha256 = "a73b8c9b4889f96946f2a31767776ded46ab7ef36ea5c5c763b4b1612041b4ee"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.x86_64-unknown-freebsd.tar.gz"
+[[dSFMT]]
+arch = "x86_64"
+git-tree-sha1 = "481b57d5e214711c71c3562e35becc3156592d92"
+os = "windows"
+
+    [[dSFMT.download]]
+    sha256 = "08c6514e50cea1292bb33748fcb62232be0998a897184f3f876916bbbaf575c8"
+    url = "https://github.com/JuliaBinaryWrappers/dSFMT_jll.jl/releases/download/dSFMT-v2.2.4+0/dSFMT.v2.2.4.x86_64-w64-mingw32.tar.gz"

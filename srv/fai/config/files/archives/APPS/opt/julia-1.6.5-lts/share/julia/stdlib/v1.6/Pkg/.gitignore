@@ -1,0 +1,12 @@
+/tmp
+*.jl.mem
+*.jl.cov
+*.jl.*.cov
+docs/build
+/Manifest.toml
+/docs/Manifest.toml
+/test/coverage/Manifest.toml
+/docs/src/repl.md
+.DS_Store
+/test/registries/*
+/test/loaded_depot/*

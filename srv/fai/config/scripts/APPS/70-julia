@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Configures Julia (withouth packages)
+# Packages are loaded in the JULIA class
+# Julia must be already distributed into $files/JULIA/opt 
+# Suggested versions to install (min):
+#   - /opt/julia -> latest LTS
+#   - latest stable
+#   - some older stable/lts versions (if needed)
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+julialts="julia" # /opt/julia -> /opt/julia-1.6.5-lts
+juliastable="julia-1.7.1-stable" # current
+# juliastablev160="julia-1.6.0-stable" # add more in APPS/opt/ if needed
+
+# link all versions in /usr/bin/
+$ROOTCMD ln -s $juliapath/$julialts/bin/julia /usr/bin/julia
+$ROOTCMD ln -s $juliapath/$juliastable/bin/julia /usr/bin/julia-1.7.1
+# $ROOTCMD ln -s /$juliapath/$juliastablev160/bin/julia /usr/bin/julia-1.6.0 # add more if needed
+
+# install minimal packages (IJulia)
+# $ROOTCMD julia $juliapath/julia_init.jl --install-min
+# do some jupyter work
+
+# Installationsdatei auf den Klienten uebertragen
+#cp $FAI/files/$file $target/tmp/
+
+# Installation ausfuehren
+#$ROOTCMD apt install /tmp/$file
+#$ROOTCMD dpkg -i /tmp/$file # old
+
+exit $error
