@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Installs Jupyterlab
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# install jupyter-* into /usr/local/bin/jupyter-*
+$ROOTCMD pip3 install jupyterlab
+
+# kernels will be stored in /usr/local/share/jupyter/kernels/
+
+exit $error

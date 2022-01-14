@@ -1,0 +1,10 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# create local copy of RRZK user database to be used by erstanmeldung.sh
+# need -Q to escape curly braces 
+ainsl -Q /etc/crontab "00 *    * * *   root    /bin/bash -c 'yptest > /usr/share/rrzk_user_list.tmp; mv /usr/share/rrzk_user_{list.tmp,list}'"
+ainsl -Q /etc/crontab "@reboot			root    /bin/bash -c 'sleep 30; yptest > /usr/share/rrzk_user_list.tmp; mv /usr/share/rrzk_user_{list.tmp,list}'"
+
+exit $error

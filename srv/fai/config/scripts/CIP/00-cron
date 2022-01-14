@@ -1,0 +1,16 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# restart in the evening
+#ainsl /etc/crontab "00 20   * * *   root    /sbin/shutdown -r now"
+
+# ... time window to perform installation
+
+# set RTC wake up time and shutdown
+#ainsl /etc/crontab "00 22   * * *   root	rtcwake --time \$(date +\%s -d 'tomorrow 08:55') --mode off"
+
+# create local copy of RRZK user database to be used by erstanmeldung.sh
+# need -Q to escape curly braces 
+
+exit $error

@@ -1,7 +1,12 @@
-ENV["JUPYTER"] = "/usr/bin/jupyter";
+#ENV["JUPYTER"] = "/usr/bin/jupyter";
 # The following ENV variables are defined outside this script
 #ENV["JULIA_PKGDIR"] = "/usr/share/julia/packages";
-#ENV["JULIA_DEPOT_PATH"] = "/usr/share/julia/packages";
+if !("JULIA_DEPOT_PATH" in keys(ENV))
+    # set DEPOT_PATH as if not given in ENV
+    #ENV["JULIA_DEPOT_PATH"] = "/usr/share/julia";
+    empty!(DEPOT_PATH)
+    push!(DEPOT_PATH, "/usr/share/julia")
+end
 
 using Pkg; 
 
