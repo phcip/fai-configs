@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # installiert Virtual Box
-# Quelle: 
+# Quelle: ? # we install virtualbox in the packages. Why here?
 # currently hangs up the installation
 
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
