@@ -10,6 +10,8 @@
 ##      - ...                   ##
 ##################################
 
+PACKAGES install
+
 # Miscellanneous software
 exfat-fuse		    # FAT utilities
 exfat-utils
