@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# installiert MS Visual Studio Code (open source version)
-# Quelle: https://code.visualstudio.com/docs/?dv=linux32_deb
+# installiert Virtual Box
+# Quelle: 
+# currently hangs up the installation
 
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 
