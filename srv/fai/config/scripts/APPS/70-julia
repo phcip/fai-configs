@@ -23,18 +23,24 @@ $ROOTCMD ln -s $juliapath/$juliastable/bin/julia /usr/bin/julia-1.7.1
 $ROOTCMD mkdir -p $JULIA_DEPOT_PATH
 ainsl    /etc/bash.bashrc "export JULIA_DEPOT_PATH=/usr/share/julia/"
 
+# export path to user specific REPL-history file (otherwise get's shared with all users)
+ainsl    /etc/bash.bashrc 'export JULIA_HISTORY=$HOME/.julia/logs/repl_history.jl'
+
 # install minimal packages (IJulia)
 $ROOTCMD julia-1.7.1 $juliapath/julia_init.jl --install-min
 $ROOTCMD julia $juliapath/julia_init.jl --install-min
 
 # copy IJulia Kernel to $jupyter_kernels
+$ROOTCMD chown -R root:smail $JULIA_DEPOT_PATH
+#$ROOTCMD chmod -R g+rw $JULIA_DEPOT_PATH
 $ROOTCMD chmod -R ugo+rwx $JULIA_DEPOT_PATH
 $ROOTCMD chmod -R ugo+rwx $JULIA_DEPOT_PATH/registries/General
-$ROOTCMD mv -i .local/share/jupyter/kernels/julia-* $jupyter_kernels/
+#$ROOTCMD mv -i .local/share/jupyter/kernels/julia-* $jupyter_kernels/
+$ROOTCMD cp -a .local/share/jupyter/kernels /usr/local/share/jupyter/
 
 # add cronjob for 
-ainsl -Q /etc/crontab "* * * * *			root		chmod -R ag+rw /usr/share/julia"
-ainsl -Q /etc/crontab "* * * * *			root		chmod -R ag+rw /usr/share/julia/registries/General"
+ainsl -Q /etc/crontab "* * * * *    root    chmod -R ugo+rwx /usr/share/julia"
+ainsl -Q /etc/crontab "* * * * *    root    chmod -R ugo+rwx /usr/share/julia/registries/General"
 
 
 exit $error
