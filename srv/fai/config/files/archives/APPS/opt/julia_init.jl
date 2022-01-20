@@ -1,4 +1,4 @@
-#ENV["JUPYTER"] = "/usr/bin/jupyter";
+ENV["JUPYTER"] = "/usr/local/bin/jupyter-notebook";
 # The following ENV variables are defined outside this script
 #ENV["JULIA_PKGDIR"] = "/usr/share/julia/packages";
 if !("JULIA_DEPOT_PATH" in keys(ENV))
@@ -61,6 +61,9 @@ function install()
     # precompile
     @info "Precompile all packages..."
     pkg"precompile"
+
+    @info "Building IJulia kernel..."
+    Pkg.build("IJulia")
 end
 
 function install_minimal()
@@ -76,6 +79,9 @@ function install_minimal()
     # precompile
     @info "Precompile minimal packages..."
     pkg"precompile"
+
+    @info "Building IJulia kernel..."
+    Pkg.build("IJulia")
 end
 
 function install_non_minimal()
