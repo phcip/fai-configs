@@ -10,7 +10,7 @@ echo "GRUB_PC FAIBASE"
 
 # define host-specific classes
 case $HOSTNAME in
-    cip9)
+    cip*)
         echo "BASE-FOCAL AFS CIP APPS";;
         # AFS CIP APPS JULIA-PKGS";;
 #   # Webserver (optional)
