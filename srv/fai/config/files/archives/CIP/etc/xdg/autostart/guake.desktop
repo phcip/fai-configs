@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Autostart Guake
+Exec=/usr/bin/guake &
+Terminal=false
+Type=Application
