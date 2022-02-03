@@ -1,0 +1,2 @@
+# test this for USB permissions # did not work
+#SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", MODE="0666"
