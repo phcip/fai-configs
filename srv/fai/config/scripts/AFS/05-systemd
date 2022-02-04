@@ -3,6 +3,7 @@
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 
 # mask the user service to fix pam_systemd.so not working (XDG_* not set, login not working, permissions net set, ...)
-$ROOTCMD systemctl mask user@.service
+#$ROOTCMD systemctl mask user@.service
+$ROOTCMD systemctl --global mask tracker-store.service
 
 exit $error
