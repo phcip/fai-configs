@@ -13,9 +13,8 @@ rm -rf ~/.thunderbird/*.default/{crashes,datareporting,minidumps} &>> $logfile
 rm -rf ~/.kde &>> $logfile
 rm -rf ~/.kde4 &>> $logfile
 
-# reset failes services (that were started from systemctl --user)
-# workaround for permission-fix (AFS vs systemd)
-systemctl --user reset-failed
+# start pulseaudio (sound controller) manually, because we deactivated the service ("AFS vs systemd --user"-Fix)
+/usr/bin/pulseaudio --start --log-target=journal
 
 # clean up the guest directory
 [[ $USER == "guest" ]] && rm -rf /home/guest/*
