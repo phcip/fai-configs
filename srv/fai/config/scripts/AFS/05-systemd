@@ -6,7 +6,7 @@ error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 #$ROOTCMD systemctl mask user@.service
 #$ROOTCMD systemctl --global mask tracker-store.service
 # mask the pulseaudio-service, because this keeps crashing "systemd --user" (we start pulseaudio manually in CIP/usr/local/bin/run_always/startup-script)
-$ROOTCMD systemctl --global --user mask pulseaudio.service
-$ROOTCMD systemctl --global --user mask pulseaudio.socket
+$ROOTCMD systemctl --global mask pulseaudio.service
+$ROOTCMD systemctl --global mask pulseaudio.socket
 
 exit $error
