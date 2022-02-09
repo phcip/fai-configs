@@ -1,0 +1,14 @@
+[Unit]
+Description=aklog.service: Set up AFS tokens before systemd --user crashes.
+Before=dbus.socket
+Requires=afs.mount
+
+[Service]
+Type=simple
+Environment=KRB5CCNAME=KEYRING:persistent:%U
+RemainAfterExit=yes
+ExecStart=/usr/bin/aklog -d
+StandardOutput=syslog
+
+[Install]
+WantedBy=default.target
