@@ -27,7 +27,7 @@ while true; do
 
 	# im SS wieder freischalten
 		
-:'
+: '
 	# Computer physics
 	case "$dow" in
 		
