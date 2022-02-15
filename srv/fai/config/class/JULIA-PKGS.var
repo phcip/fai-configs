@@ -6,3 +6,5 @@
 ##  - All wanted julia packages ##
 ##  - requires Julia from APPS  ##
 ##################################
+
+juliapath="/opt" # APPS/opt/julia
