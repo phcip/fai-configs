@@ -10,7 +10,7 @@ julialts="julia" # /opt/julia -> /opt/julia-1.6.5-lts
 
 # install non-minimal packages (IJulia)
 $ROOTCMD julia $juliapath/julia_init.jl --install-non-min
-$ROOTCMD julia-1.7.1 $juliapath/julia_init.jl --install-non-min
+#$ROOTCMD julia-1.7.1 $juliapath/julia_init.jl --install-non-min
 
 
 exit $error
