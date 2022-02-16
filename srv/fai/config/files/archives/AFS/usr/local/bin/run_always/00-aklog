@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Starts again authentication against AFS 
+#       Sometimes the tokens are (still) not available after login and everything crashes (Besides the big fix).
+#       Sometimes a restart fixes it. Running aklog and log out and in again works always.
+#       Therefore: run aklog as the FIRST ("00-") script. If tokens are available, nothing happens. If not, the tokens should be available after that.
+
+# Run aklog and detach
+aklog &
+
+exit 0
