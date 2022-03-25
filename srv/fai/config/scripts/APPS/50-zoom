@@ -11,7 +11,7 @@ file="zoom_amd64.deb"
 cp $FAI/files/$file $target/tmp/
 
 # Installation ausfuehren
-$ROOTCMD apt install /tmp/$file
+$ROOTCMD apt install -y /tmp/$file
 #$ROOTCMD dpkg -i /tmp/$file # old
 
 exit $error
