@@ -1,3 +1,0 @@
-module FailBuild
-
-end # module
