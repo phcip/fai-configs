@@ -10,6 +10,8 @@ echo "GRUB_PC FAIBASE"
 
 # define host-specific classes
 case $HOSTNAME in
+    cip9)
+        echo "BASE-JAMMY AFS CIP APPS JULIA-PKGS";;
     cip*)
         echo "BASE-FOCAL AFS CIP APPS JULIA-PKGS";;
         # AFS CIP APPS JULIA-PKGS";;

@@ -1,0 +1,17 @@
+##################################
+##  VARIABLE DEFINITIONS        ##
+##                              ##
+##  Class: BASE-JAMMY           ##
+##  Sets up:                    ##
+##  - Ubuntu 22.04 LTS (jammy)  ##
+##################################
+# default values for installation. You can override them in your *.var files
+
+# this UBUNTU distribution will be installed on client
+# also used to create client sources.list
+ubuntudist=jammy
+
+# set to "yes" if we use local package mirror
+# used by hooks/updatebase.FAIBASE
+usemirror=no
+

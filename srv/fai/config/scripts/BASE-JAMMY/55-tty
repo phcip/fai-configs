@@ -1,0 +1,17 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# Optimize tty font for 4K display
+
+$ROOTCMD bash -c 'echo "console-setup	console-setup/fontsize-fb47	select	16x32" | debconf-set-selections'
+$ROOTCMD bash -c 'echo "console-setup	console-setup/fontface47	select	TerminusBold" | debconf-set-selections'
+$ROOTCMD bash -c 'echo "console-setup	console-setup/fontsize	string	16x32" | debconf-set-selections'
+
+if $ROOTCMD dpkg -l console-setup; then
+	$ROOTCMD bash -c 'DEBIAN_FRONTEND=noninteractive dpkg-reconfigure console-setup'
+else
+	$ROOTCMD bash -c 'DEBIAN_FRONTEND=noninteractive apt-get -yq install console-setup'
+fi
+
+exit $error
