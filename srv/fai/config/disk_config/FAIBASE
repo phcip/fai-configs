@@ -9,4 +9,4 @@ primary /      40G	ext4  rw,noatime,errors=remount-ro
 # /dev/hda2
 logical swap   4G	swap  sw
 # logfiles
-primary /var/log 2G  ext4  rw,noatime,errors=remount-ro
+primary /var/log 4G  ext4  rw,noatime,errors=remount-ro
