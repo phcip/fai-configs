@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=GnuPlot 5
+Comment=Command-line driven graphing utility
+Exec=/usr/bin/gnuplot
+Icon=/usr/share/icons/gnuplot.png
+StartupNotify=false
+Terminal=true
+Categories=Graphics;Education;

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=QtiPlot
+Comment=Analyze and plot scientific data
+Exec=qtiplot
+Terminal=false
+Type=Application
+Icon=qtiplot
+Categories=Education;Science;Math;Qt;Graphics;
+StartupNotify=true

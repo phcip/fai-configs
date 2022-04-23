@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Julia
+Comment=Interactive Julia interpreter
+Exec=gnome-terminal /usr/bin/julia
+Icon=/usr/share/icons/xfce-julia.png
+Categories=X-Julia;

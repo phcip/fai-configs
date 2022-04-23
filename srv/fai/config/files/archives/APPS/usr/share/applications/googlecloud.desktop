@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Google Cloud platform
+Exec=/usr/bin/firefox https://cloud.google.com/
+Icon=/usr/share/icons/googlecloud.png
+Name=Google Cloud
+Categories=X-Online;
+StartupNotify=false
+Type=Application

@@ -12,6 +12,11 @@ rm -f ~/.mozilla/firefox/*.default/places.sqlite.corrupt &>> $logfile
 rm -rf ~/.thunderbird/*.default/{crashes,datareporting,minidumps} &>> $logfile
 rm -rf ~/.kde &>> $logfile
 rm -rf ~/.kde4 &>> $logfile
+rm -rf .cache/*
+rm -rf ~/.Mathematica &>> $logfile			# kann ohne Probleme gelöscht werden, da es beim nächsten Start von Mathematica neu erstellt wird
+#rm -rf ~/.mozilla/firefox/*.default/Cache &>> $logfile
+rm -rf ~/.mozilla/firefox/Crash* &>> $logfile
+rm -f ~/.Xauthority &>> $logfile 			# kann das Login verhindern, wird dann neu generiert
 
 # start pulseaudio (sound controller) and reset failed services (e.g. aklog.service) manually, because we deactivated the service pulseaudio ("AFS vs systemd --user"-Fix)
 systemctl --user --reset-failed

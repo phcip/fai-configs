@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Overleaf, online LaTeX editor. ShareLatTeX
+Exec=/usr/bin/firefox https://www.overleaf.com/
+Icon=/usr/share/icons/sharelatex.png
+Name=OverLeaf
+Categories=X-Latex;
+StartupNotify=false
+Type=Application

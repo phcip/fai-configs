@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Mathematica
+Comment=Symbolic computation software
+Exec=/usr/local/bin/mathematica
+Icon=/media/mirror/mathematica/icon.png
+Terminal=false
+StartupNotify=false
+Categories=Education

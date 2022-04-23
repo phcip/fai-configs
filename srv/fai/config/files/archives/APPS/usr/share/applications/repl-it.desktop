@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Cloud coding environment for lots of languages
+Exec=/usr/bin/firefox https://repl.it
+Icon=/usr/share/icons/replit.png
+Name=Repl.it
+Categories=X-Python;X-Online;
+StartupNotify=false
+Type=Application

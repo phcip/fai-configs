@@ -10,13 +10,17 @@
 
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 
-julialts="julia" # /opt/julia -> /opt/julia-1.6.5-lts
-juliastable="julia-1.7.1-stable" # current
+julialts="julia-1.6.5-lts" # /opt/julia-1.6.5-lts
+juliastablev171="julia-1.7.1-stable" # /opt/julia-1.7.1-stable
+juliastablev172="julia-1.7.2-stable" # /opt/julia-1.7.1-stable # current stable
+# /opt/julia -> symlink to selected version (current)
 # juliastablev160="julia-1.6.0-stable" # add more in APPS/opt/ if needed
 
 # link all versions in /usr/bin/
-$ROOTCMD ln -s $juliapath/$julialts/bin/julia /usr/bin/julia
-$ROOTCMD ln -s $juliapath/$juliastable/bin/julia /usr/bin/julia-1.7.1
+$ROOTCMD ln -s $juliapath/$julialts/bin/julia /usr/bin/julia-1.6.5
+#$ROOTCMD ln -s $juliapath/$juliastablev171/bin/julia /usr/bin/julia-1.7.1 # exclude later
+$ROOTCMD ln -s $juliapath/$juliastablev172/bin/julia /usr/bin/julia-1.7.2
+$ROOTCMD ln -s $juliapath/julia/bin/julia /usr/bin/julia
 # $ROOTCMD ln -s /$juliapath/$juliastablev160/bin/julia /usr/bin/julia-1.6.0 # add more if needed
 
 # create directory and export path
@@ -28,7 +32,8 @@ ainsl    /etc/bash.bashrc 'export JULIA_HISTORY=$HOME/.julia/logs/repl_history.j
 
 # install minimal packages (IJulia)
 $ROOTCMD julia $juliapath/julia_init.jl --install-min
-$ROOTCMD julia-1.7.1 $juliapath/julia_init.jl --install-min
+$ROOTCMD julia-1.6.5 $juliapath/julia_init.jl --install-min
+#$ROOTCMD julia-1.7.2 $juliapath/julia_init.jl --install-min # current
 
 # copy IJulia Kernel to $jupyter_kernels
 $ROOTCMD chown -R root:smail $JULIA_DEPOT_PATH
