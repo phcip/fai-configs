@@ -10,7 +10,7 @@ file="chrome.deb"
 # Installationsdatei auf den Klienten uebertragen
 cp $FAI/files/$file $target/tmp/
 
-$ROOTCMD apt install /tmp/$file
+$ROOTCMD apt -y install /tmp/$file
 #$ROOTCMD dpkg -i /tmp/$file # old
 
 exit $error

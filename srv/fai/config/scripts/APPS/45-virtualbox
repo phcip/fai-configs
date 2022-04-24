@@ -12,7 +12,7 @@ file="virtualbox-6.1_6.1.30-148432_amd64.deb"
 cp $FAI/files/$file $target/tmp/
 
 # Installation ausfuehren
-$ROOTCMD apt install /tmp/$file
+$ROOTCMD apt -y install /tmp/$file
 #$ROOTCMD dpkg -i /tmp/$file # old
 
 exit $error

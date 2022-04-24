@@ -12,7 +12,7 @@ file="sublime-text_build-4126_amd64.deb"
 cp $FAI/files/$file $target/tmp/
 
 # Installation ausfuehren
-$ROOTCMD apt install /tmp/$file
+$ROOTCMD apt -y install /tmp/$file
 #$ROOTCMD dpkg -i /tmp/$file # old
 
 exit $error
