@@ -17,6 +17,7 @@ PACKAGES install DHCPC
 isc-dhcp-client
 
 PACKAGES install GRUB_PC
+zstd binutils
 grub-pc
 
 PACKAGES install
