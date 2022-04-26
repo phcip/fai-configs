@@ -15,7 +15,9 @@
 # Scientific Linux Cern 5/6
 #
 # Packages you might want to install to use this command:
-# debootstrap, rinse, xz-utils
+# debootstrap, rinse, xz-utils, zstd
+
+export DEBOOTSTRAP_DIR=/srv/fai/config/debootstrap
 
 
 # Define your local mirros here
@@ -196,7 +198,7 @@ debgeneric() {
 	else
             arch=i386
 	fi
-	debootstrap --arch $arch ${exc} $inc $dist $xtmp $mirror
+    debootstrap --extractor=ar --arch $arch ${exc} $inc $dist $xtmp $mirror
     fi
     cleanup-deb
     tarit
