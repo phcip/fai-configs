@@ -9,8 +9,7 @@
 # packages essential for FAI installation
 PACKAGES install AMD64
 #linux-image-generic
-linux-generic-hwe-20.04
-#linux-generic-hwe-22.04 # not yet available
+linux-generic-hwe-22.04
 initramfs-tools
 memtest86+
 
