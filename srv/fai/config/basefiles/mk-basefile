@@ -43,7 +43,7 @@ EXCLUDE_FOCAL=udhcpc,dibbler-client,info
 EXCLUDE_JAMMY=udhcpc,dibbler-client,info
 
 # here you can add packages, that are needed very early
-INCLUDE_DEBIAN=zstd,binutils
+INCLUDE_DEBIAN=zstd,binutils,grub-pc
 
 
 setarch() {
