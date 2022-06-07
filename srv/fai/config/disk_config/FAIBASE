@@ -11,4 +11,4 @@ logical swap   4G	swap  sw
 # logfiles
 primary /var/log 2G  ext4  rw,noatime,errors=remount-ro
 # scratch (computer physik praktikum, simulationen, ...)
-logical /scratch 50G-70G
+logical /scratch 50G-70G  ext4  rw,noatime,errors=remount-ro
