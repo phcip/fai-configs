@@ -61,8 +61,8 @@ consolekit              # system daemon for tracking logged in users an their in
 nfs-common
 
 gdm3
-lightdm
-lightdm-gtk-greeter
+#lightdm
+#lightdm-gtk-greeter
 #unity-greeter
 greybird-gtk-theme
 dbus-x11						# important!

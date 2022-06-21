@@ -1,0 +1,8 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# disable the displaying of the list of user names
+ainsl /etc/gdm3/greeter.dconf-defaults "disable-user-list=true"
+
+exit $error
