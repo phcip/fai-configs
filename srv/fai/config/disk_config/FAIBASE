@@ -10,5 +10,5 @@ primary /      40G-50G	ext4  rw,noatime,errors=remount-ro
 logical swap   4G	swap  sw
 # logfiles
 primary /var/log 2G  ext4  rw,noatime,errors=remount-ro
-# scratch (computer physik praktikum, simulationen, ...)
+# scratch (computer physik praktikum, simulationen, ...) # see CLUSTER class
 logical /scratch 50G-70G  ext4  rw,noatime,errors=remount-ro

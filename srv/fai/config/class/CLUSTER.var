@@ -1,0 +1,10 @@
+##################################
+##  VARIABLE DEFINITIONS        ##
+##                              ##
+##  Class: CLUSTER              ##
+##  Sets up:                    ##
+##  - User compphys             ##
+##  - public/private ssh keys   ##
+##  - authorized_keys           ##
+##  - SLURM                     ##
+##################################
