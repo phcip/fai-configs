@@ -2,7 +2,7 @@
 #
 # <type> <mountpoint> <size>   <fs type> <mount options> <misc options>
 
-disk_config disk1 preserve_always:4 disklabel:msdos bootable:1 fstabkey:uuid
+disk_config disk1 preserve_always:6 disklabel:msdos bootable:1 fstabkey:uuid
 
 # /dev/hda1
 primary /      40G-50G	ext4  rw,noatime,errors=remount-ro

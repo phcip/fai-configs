@@ -2,7 +2,7 @@
 #
 # <type> <mountpoint> <size>   <fs type> <mount options> <misc options>
 
-disk_config disk1 preserve_always:5 disklabel:msdos bootable:1 fstabkey:uuid
+disk_config disk1 preserve_always:7 disklabel:msdos bootable:1 fstabkey:uuid
 
 # EFI
 primary /boot/efi 512M  vfat  rw
