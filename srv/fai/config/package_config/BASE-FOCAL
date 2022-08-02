@@ -16,8 +16,12 @@ memtest86+
 PACKAGES install DHCPC
 isc-dhcp-client
 
-PACKAGES install GRUB_PC
+# GRUB_PC
+PACKAGES install BIOS
 grub-pc
+
+PACKAGES install EFI
+grub-efi-amd64
 
 PACKAGES install
 aptitude

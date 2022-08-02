@@ -18,7 +18,13 @@ isc-dhcp-client
 
 PACKAGES install GRUB_PC
 zstd binutils
+#grub-pc
+
+PACKAGES install BIOS
 grub-pc
+
+PACKAGES install EFI
+grub-efi-amd64
 
 PACKAGES install
 aptitude

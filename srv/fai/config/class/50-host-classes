@@ -6,14 +6,16 @@
 [ "$flag_menu" ] && exit 0
 
 # define host-independent classes
-echo "GRUB_PC FAIBASE"
+echo "GRUB_PC" # FAIBASE
 
 # define host-specific classes
 case $HOSTNAME in
-    cip9)
-        echo "BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
+    cip9|cip5)
+        echo "BIOS FAIBASE BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
+    cip25)
+        echo "EFI FAIBASE_EFI BASE-FOCAL AFS CIP APPS JULIA-PKGS CLUSTER";;
     cip*)
-        echo "BASE-FOCAL AFS CIP APPS JULIA-PKGS CLUSTER";;
+        echo "BIOS FAIBASE BASE-FOCAL AFS CIP APPS JULIA-PKGS CLUSTER";;
         # AFS CIP APPS JULIA-PKGS";;
 #   # Webserver (optional)
     juno)

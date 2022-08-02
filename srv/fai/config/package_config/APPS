@@ -656,7 +656,8 @@ python-qrtools	# create and decode QR-Codes with Python
 python3-tk
 python3-pyqt5	# dependency of timewarning-message script
 # Python package management
-python-pip python3-pip
+#python-pip # broken package
+python3-pip
 
 # Java
 #openjdk-8-jre openjdk-8-jdk openjdk-8-doc
