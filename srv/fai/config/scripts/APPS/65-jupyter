@@ -9,7 +9,7 @@ $ROOTCMD pip3 install cairocffi --upgrade
 $ROOTCMD pip3 install ipython --upgrade
 
 # install jupyter-* into /usr/local/bin/jupyter-*
-$ROOTCMD pip3 install jupyterlab
+#$ROOTCMD pip3 install jupyterlab # install via atp
 
 # kernels will be stored in /usr/local/share/jupyter/kernels/
 
