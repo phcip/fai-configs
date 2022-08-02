@@ -13,8 +13,10 @@ $ROOTCMD mkdir /var/spool/slurm
 $ROOTCMD chown compphys:root /var/spool/slurm
 $ROOTCMD chown munge:munge /etc/munge/munge.key
 $ROOTCMD ldconfig -n /usr/lib/x86_64-linux-gnu/
-# $ROOTCMD chown /var/log/slurmctld.log # only on master
-$ROOTCMD chown /var/log/slurmd.log # nodes
+# $ROOTCMD chown compphys:root /var/log/slurmctld.log # only on master
+$ROOTCMD chown compphys:root /var/log/slurmd.log # nodes
+
+$ROOTCMD chown
 
 # enable slurmd
 $ROOTCMD systemctl enable slurmd.service
