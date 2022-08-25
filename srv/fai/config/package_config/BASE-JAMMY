@@ -16,14 +16,13 @@ memtest86+
 PACKAGES install DHCPC
 isc-dhcp-client
 
-PACKAGES install GRUB_PC
-zstd binutils
-#grub-pc
-
+# GRUB_PC
 PACKAGES install BIOS
+zstd binutils
 grub-pc
 
 PACKAGES install EFI
+zstd binutils
 grub-efi-amd64
 
 PACKAGES install
