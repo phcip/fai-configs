@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Installs Firefox from apt instead from snap
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# remove firefox from snap
+#$ROOTCMD snap remove firefox -y
+
+# add mozilla ppa
+$ROOTCMD add-apt-repository ppa:mozillateam/ppa -y
+
+# package priority changed in APPS/etc/apt/preferences.d/mozilla-firefox
+# unattended upgrade BASE-{JAMMY,FOCAL}/etc/apt/apt.conf.d/51unattended-upgrades-firefox
+
+# install from apt
+$ROOTCMD apt update -y
+$ROOTCMD apt install firefox -y --allow-downgrades
+
+exit $error
