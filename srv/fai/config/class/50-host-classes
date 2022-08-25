@@ -12,10 +12,11 @@ echo "GRUB_PC" # FAIBASE
 case $HOSTNAME in
     cip9|cip5)
         echo "BIOS FAIBASE BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
-    cip25)
-        echo "EFI FAIBASE_EFI BASE-FOCAL AFS CIP APPS JULIA-PKGS CLUSTER";;
+    # new PXE clients
     cip*)
-        echo "BIOS FAIBASE BASE-FOCAL AFS CIP APPS JULIA-PKGS CLUSTER";;
+        echo "EFI FAIBASE_EFI BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
+    #cip*)
+        #echo "BIOS FAIBASE BASE-FOCAL AFS CIP APPS JULIA-PKGS CLUSTER";;
         # AFS CIP APPS JULIA-PKGS";;
 #   # Webserver (optional)
     juno)
