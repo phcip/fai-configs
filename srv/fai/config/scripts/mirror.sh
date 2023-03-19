@@ -17,7 +17,7 @@ conf="/etc/fai" # "/etc/fai/mirror"
 mirror="/opt/mirror/ubuntu"
 
 # FAI classes, which package lists are used to create mirror package list
-classes="AMD64,DEFAULT,GRUB_PC,FAIBASE,UBUNTU,CIPMIN,CIP,JULIA"
+classes="AMD64,DEFAULT,GRUB_PC,EFI,FAIBASE_EFI,BASE-JAMMY,AFS,CIP,APPS,JULIA-PKGS,CLUSTER"
 #classes="AMD64,DEFAULT,GRUB_PC,FAIBASE,BIONIC,CIPMIN,CIP"
 
 # Mirroring log file
