@@ -1,3 +1,6 @@
 .DS_Store
 id_rsa
 munge.key
+srv/fai/config/files/archives/APPS/opt/*
+!srv/fai/config/files/archives/APPS/opt/julia_init.jl
+!srv/fai/config/files/archives/APPS/opt/get-julia-versions.conf
