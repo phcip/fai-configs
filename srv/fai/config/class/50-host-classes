@@ -10,9 +10,11 @@ echo "GRUB_PC" # FAIBASE
 
 # define host-specific classes
 case $HOSTNAME in
-    cip9|cip5)
-        echo "BIOS FAIBASE BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
+    #cip9)
+    #    echo "BIOS FAIBASE BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
     # new PXE clients
+    #cip6)
+    #    echo "EFI FAIBASE_EFI BASE-JAMMY";;
     cip*)
         echo "EFI FAIBASE_EFI BASE-JAMMY AFS CIP APPS JULIA-PKGS CLUSTER";;
     #cip*)

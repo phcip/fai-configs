@@ -2,16 +2,20 @@
 #
 # <type> <mountpoint> <size>   <fs type> <mount options> <misc options>
 
-#disk_config disk1 preserve_always:7 disklabel:msdos bootable:1 fstabkey:uuid
-disk_config disk1 disklabel:msdos bootable:1 fstabkey:uuid
+disk_config disk1 preserve_always:6 disklabel:msdos bootable:1 fstabkey:device
+#fstabkey:uuid
+#disk_config disk1 disklabel:msdos bootable:1 fstabkey:uuid
 
-# EFI
+# 1 # EFI
 primary /boot/efi 512M  vfat  rw
-# /dev/hda1
-primary /      40G-50G	ext4  rw,noatime,errors=remount-ro
-# /dev/hda2
-logical swap   4G	swap  sw
-# logfiles
-primary /var/log 2G  ext4  rw,noatime,errors=remount-ro
-# scratch (computer physik praktikum, simulationen, ...) # see CLUSTER class
-logical /scratch 50G-70G  ext4  rw,noatime,errors=remount-ro
+# 2 # root
+primary /      50G-60G  ext4  rw,noatime,errors=remount-ro
+# 3 # swap
+primary swap   6G       swap  sw
+
+
+# 4 # extended partition, contains:
+# 5 # logfiles
+logical /var/log 4G  ext4  rw,noatime,errors=remount-ro
+# 6 # scratch (computer physik praktikum, simulationen, ...) # see CLUSTER class
+logical /scratch 50G-  ext4  rw,noatime,errors=remount-ro
