@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# Installs needed Julia Packages
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+julialts="julia" # /opt/julia -> /opt/julia-1.6.5-lts
+#juliastable="julia-1.7.1-stable" # current
+# juliastablev160="julia-1.6.0-stable" # add more in APPS/opt/ if needed
+
+# install non-minimal packages (IJulia)
+$ROOTCMD julia-1.6.5 $juliapath/julia_init.jl --install-non-min
+#$ROOTCMD julia-1.7.1 $juliapath/julia_init.jl --install-non-min
+$ROOTCMD julia $juliapath/julia_init.jl --install-non-min # 1.7.2
+
+
+
+exit $error

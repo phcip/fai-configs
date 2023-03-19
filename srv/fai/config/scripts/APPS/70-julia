@@ -10,17 +10,26 @@
 
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 
-julialts="julia-1.6.5-lts" # /opt/julia-1.6.5-lts
-#juliastablev171="julia-1.7.1-stable" # /opt/julia-1.7.1-stable
-juliastablev172="julia-1.7.2-stable" # /opt/julia-1.7.2-stable # current stable
-# /opt/julia -> symlink to selected version (current)
-# juliastablev160="julia-1.6.0-stable" # add more in APPS/opt/ if needed
+# array of julia versions: juliaVersArr
+# main versions (will be suffixed with -stable and -lts): juliaVersStable, juliaVersLTS
+# load the list of versions (and juliaVersStable and juliaVersLTS) from the config file
+source $FAI/files/archives/APPS/opt/get-julia-versions.conf
 
 # link all versions in /usr/bin/
-$ROOTCMD ln -s $juliapath/$julialts/bin/julia /usr/bin/julia-1.6.5
-$ROOTCMD ln -s $juliapath/$juliastablev172/bin/julia /usr/bin/julia-1.7.2
+for vers in "${!juliaVersArr[@]}"; do
+    if [ "$vers" = "$juliaVersStable" ]; then
+        # link stable version
+        $ROOTCMD ln -s $juliapath/$vers-stable/bin/julia /usr/bin/$vers
+    elif [ "$vers" = "$juliaVersLTS" ]; then
+        # link lts version
+        $ROOTCMD ln -s $juliapath/$vers-lts/bin/julia /usr/bin/$vers
+    else
+        # other versions don't have a suffix
+        $ROOTCMD ln -s $juliapath/$vers/bin/julia /usr/bin/$vers
+    fi
+done
+# link default (stable) version in /usr/bin
 $ROOTCMD ln -s $juliapath/julia/bin/julia /usr/bin/julia
-# $ROOTCMD ln -s /$juliapath/$juliastablev160/bin/julia /usr/bin/julia-1.6.0 # add more if needed
 
 # create directory and export path
 $ROOTCMD mkdir -p $JULIA_DEPOT_PATH
@@ -30,19 +39,34 @@ ainsl    /etc/bash.bashrc "export JULIA_DEPOT_PATH=/usr/share/julia/"
 ainsl    /etc/bash.bashrc 'export JULIA_HISTORY=$HOME/.julia/logs/repl_history.jl'
 
 # install minimal packages (IJulia)
+# first the default (stable) version
 $ROOTCMD julia $juliapath/julia_init.jl --install-min
-$ROOTCMD julia-1.6.5 $juliapath/julia_init.jl --install-min
-#$ROOTCMD julia-1.7.2 $juliapath/julia_init.jl --install-min # current
+# then the lts version
+$ROOTCMD $juliaVersLTS $juliapath/julia_init.jl --install-min
+# other versions
+for vers in "${!juliaVersArr[@]}"; do
+    if [ "$vers" = "$juliaVersStable" ]; then
+        # already done
+    elif [ "$vers" = "$juliaVersLTS" ]; then
+        # already done
+    else
+        # other versions
+        $ROOTCMD $vers $juliapath/julia_init.jl --install-min
+    fi
+done
 
-# copy IJulia Kernel to $jupyter_kernels
+# modify permissions
 $ROOTCMD chown -R root:smail $JULIA_DEPOT_PATH
-#$ROOTCMD chmod -R g+rw $JULIA_DEPOT_PATH
 $ROOTCMD chmod -R ugo+rwx $JULIA_DEPOT_PATH
 $ROOTCMD chmod -R ugo+rwx $JULIA_DEPOT_PATH/registries/General
-#$ROOTCMD mv -i .local/share/jupyter/kernels/julia-* $jupyter_kernels/
-$ROOTCMD cp -a .local/share/jupyter/kernels /usr/local/share/jupyter/
 
-# add cronjob for 
+# copy IJulia Kernels to $jupyter_kernels
+for vers in "${!juliaVersArr[@]}"; do
+    shortvers=${vers%.*}
+    $ROOTCMD cp -a .local/share/jupyter/kernels/$shortvers /usr/share/jupyter/kernels/
+done
+
+# add cronjob to fix permissions of the packages
 ainsl -Q /etc/crontab "* * * * *    root    chmod -R ugo+rwx /usr/share/julia"
 ainsl -Q /etc/crontab "* * * * *    root    chmod -R ugo+rwx /usr/share/julia/registries/General"
 

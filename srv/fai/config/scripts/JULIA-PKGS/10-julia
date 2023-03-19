@@ -4,15 +4,24 @@
 
 error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 
-julialts="julia" # /opt/julia -> /opt/julia-1.6.5-lts
-#juliastable="julia-1.7.1-stable" # current
-# juliastablev160="julia-1.6.0-stable" # add more in APPS/opt/ if needed
+# array of julia versions: juliaVersArr
+# main versions (will be suffixed with -stable and -lts): juliaVersStable, juliaVersLTS
+# load the list of versions (and juliaVersStable and juliaVersLTS) from the config file
+source $FAI/files/archives/APPS/opt/get-julia-versions.conf
 
-# install non-minimal packages (IJulia)
-$ROOTCMD julia-1.6.5 $juliapath/julia_init.jl --install-non-min
-#$ROOTCMD julia-1.7.1 $juliapath/julia_init.jl --install-non-min
-$ROOTCMD julia $juliapath/julia_init.jl --install-non-min # 1.7.2
+# install non-minimal packages for all versions (except stable)
+for vers in "${!juliaVersArr[@]}"; do
+    if [ "$vers" = "$juliaVersStable" ]; then
+        # do that last
+    else
+        # other versions
+        $ROOTCMD $vers $juliapath/julia_init.jl --install-non-min
+    fi
+done
 
-
+# install non-minimal packages # LTS
+# $ROOTCMD $juliaVersLTS $juliapath/julia_init.jl --install-non-min
+# install non-minimal packages for default (stable)
+$ROOTCMD julia $juliapath/julia_init.jl --install-non-min
 
 exit $error
