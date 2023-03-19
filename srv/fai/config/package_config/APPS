@@ -803,6 +803,7 @@ libgtk-3-dev				# Gtk+ source code
 virtualbox
 remmina						# Remote desktop client
 xtightvncviewer			# VNC remote desktop client
+xdotool                 #cmd-line automation tool (gnome-terminal fix)
 
 #==========================================================
 #======================= KDE GOODIES ======================
