@@ -4,6 +4,10 @@
 
 logfile="/dev/null"
 
+# (re)start the gnome-session (or try to)
+gnome-session binary &
+
+
 # clean up user home directory and cache
 rm -f ~/.icedove/*.default/.parentlock &> "$logfile"
 rm -f ~/.mozilla/firefox/*.default/.parentlock &>> $logfile
@@ -50,5 +54,22 @@ fi
 
 # reset keyboard input sources to US and DE
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'de')]"
+
+# reset power button action to nothing (prevents unwanted shutdowns)
+gsettings set org.gnome.settings-daemon.plugins.power power-button-action 'nothing'
+
+# check if gnome-terminal/-session is working
+wait
+gnome-terminal
+
+# capture return code (0: ok, >0: error)
+retVal=$?
+if [ $retVal -ne 0 ]; then
+    # gnome-terminal does not work.
+
+    #temp fix: run comands in a guake terminal with xdotool
+    guake -t; xdotool type "gnome-session binary"; xdotool key "Return"; guake -t
+fi
+
 
 exit 0
