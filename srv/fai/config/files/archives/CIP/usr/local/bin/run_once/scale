@@ -2,9 +2,9 @@
 
 # Zoom in GUI elements for Gnome 
 
-GUI=2
+GUI=1
 TEXT=1
-CURSOR=48
+CURSOR=16
 ICONS=24
 FONTSIZE=10
 FONTFAMILY="Ubuntu"

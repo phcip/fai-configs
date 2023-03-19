@@ -659,10 +659,14 @@ python3-pyqt5	# dependency of timewarning-message script
 #python-pip # broken package
 python3-pip
 
+# Jupyter
+jupyter
+
 # Java
 #openjdk-8-jre openjdk-8-jdk openjdk-8-doc
 #openjdk-9-jre openjdk-9-jdk openjdk-9-doc openjdk-9-headless 
-openjdk-16-jre openjdk-16-jdk openjdk-16-doc
+# openjdk-16-jre openjdk-16-jdk openjdk-16-doc
+openjdk-18-jre openjdk-18-jdk openjdk-18-doc
 
 # C / C++
 cutils cmake

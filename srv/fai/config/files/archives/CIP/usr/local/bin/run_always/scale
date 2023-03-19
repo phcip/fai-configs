@@ -2,7 +2,7 @@
 
 # Restore scaling factor after using beamer script 
 
-GUI=2
+GUI=1
 
 # Make sure gsettings can take effect at all
 export GIO_EXTRA_MODULES=/usr/lib/x86_64-linux-gnu/gio/modules/ &> /dev/null

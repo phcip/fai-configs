@@ -7,6 +7,9 @@ error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 # remove firefox from snap
 #$ROOTCMD snap remove firefox -y
 
+#remove firefox/jammy,now 1:1snap1-0ubuntu2 amd64 with apt
+$ROOTCMD apt purge firefox -y
+
 # add mozilla ppa
 $ROOTCMD add-apt-repository ppa:mozillateam/ppa -y
 

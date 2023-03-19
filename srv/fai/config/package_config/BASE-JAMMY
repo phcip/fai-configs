@@ -24,6 +24,7 @@ grub-pc
 PACKAGES install EFI
 zstd binutils
 grub-efi-amd64
+efibootmgr
 
 PACKAGES install
 aptitude

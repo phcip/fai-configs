@@ -105,7 +105,7 @@ echo    # Newline
 hash="$(echo "$pass" | openssl dgst -sha256)"
  
 # Hash of the original password
-orig_hash="(stdin)= a2d3f9498d948533b2d73c253292b2277a7bde76cda7b474269c49d0744e6a5b"
+orig_hash="SHA2-256(stdin)= a2d3f9498d948533b2d73c253292b2277a7bde76cda7b474269c49d0744e6a5b"
 
 # Compare generated and original hashes
 if [[ ! $hash = $orig_hash ]]; then 

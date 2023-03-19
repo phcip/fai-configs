@@ -50,7 +50,7 @@ beamer_off () {
 	# Reihenfolge wichtig!
 	
 	# Zuerst Skalierung ändern
-	change_scaling "2" "1" "36"
+	change_scaling "1" "1" "36"
 
 	# dann die Auflösung
 	xrandr --output "$monitor" --auto --output "$beamer" --below "$monitor"

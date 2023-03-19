@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Jupyter Notebook
+Comment=Run Jupyter Notebook
+Exec=env JULIA_DEPOT_PATH=/usr/share/julia/ jupyter-notebook %f
+Terminal=true
+Icon=/usr/share/icons/jupyter.png
+StartupNotify=true
+MimeType=application/x-ipynb+json;
+Categories=Development;Education;
+Keywords=python;julia;

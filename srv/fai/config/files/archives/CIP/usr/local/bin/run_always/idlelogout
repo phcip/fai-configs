@@ -5,7 +5,7 @@ TIMER=1800000
 USER="$(whoami)"
 
 while true; do 
-	IDLE=$(xprintidle)
+	IDLE=$(echo $(dbus-send --print-reply --dest=org.gnome.Mutter.IdleMonitor /org/gnome/Mutter/IdleMonitor/Core org.gnome.Mutter.IdleMonitor.GetIdletime) | cut -d ' ' -f 10)
 	if (( $IDLE > $TIMER ))
 	then
 		pkill -u "$USER"
