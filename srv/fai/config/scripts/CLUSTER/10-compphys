@@ -17,7 +17,7 @@ $ROOTCMD chmod 400 /home/$name/.ssh/id_rsa
 # make /scratch writable for everyone
 $ROOTCMD chmod 777 /scratch
 # create user directory
-$ROOTCMD mkdir /scratch/$name
+$ROOTCMD mkdir -p /scratch/$name
 $ROOTCMD chown $name:cip /scratch/$name
 
 

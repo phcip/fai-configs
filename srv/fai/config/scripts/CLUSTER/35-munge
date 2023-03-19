@@ -1,0 +1,27 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# Install (Open)PMIx from compiled tarball (in $fai/files/ from neptun:/home/shk/...)
+
+file="munge-0.5.14.tar.xz"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/$file $target/tmp/
+
+# extract
+$ROOTCMD tar xJf /tmp/$file -C /tmp
+
+# configure and install from source to /usr
+$ROOTCMD bash -c "cd /tmp/munge-0.5.14/; ./configure --prefix=/usr/local;  make; make install"
+
+# copy munge key
+$ROOTCMD cp /etc/munge/munge.key /usr/local/etc/munge/munge.key
+
+# repair permissions
+$ROOTCMD chown -R munge:munge /usr/local/var/log/munge
+$ROOTCMD chown -R munge:munge /usr/local/etc/munge
+$ROOTCMD chown -R munge:munge /usr/local/var/run/munge
+
+
+exit $error

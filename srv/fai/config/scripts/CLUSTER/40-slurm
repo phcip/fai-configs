@@ -1,0 +1,51 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+#####################################################################
+# Prepare and initialize cluster (SLURM)
+
+# Install SLURM from compiled tarball (in $fai/files/ from neptun:/home/shk/...)
+
+file="slurm"
+filename="${file}_compiled.tar"
+
+# Installationsdatei auf den Klienten uebertragen
+cp $FAI/files/$filename $target/tmp/
+
+# extract
+$ROOTCMD tar -xf /tmp/$filename -C /tmp
+# copy to /usr/local/
+$ROOTCMD bash -c "cp -r /tmp/$file/* /usr/local/"
+
+# copy also to /home/shk/pmix (compile path on neptun), as this path is fixed compiled in some binaries
+$ROOTCMD bash -c "cp -r /tmp/$file /home/shk/$file"
+
+# copy missing cgroup.conf
+$ROOTCMD cp /etc/slurm/cgroup.conf /usr/local/etc/cgroup.conf
+$ROOTCMD cp /etc/slurm/cgroup.conf /home/shk/$file/etc/cgroup.conf
+
+
+
+# add compphys to group slurm
+$ROOTCMD addgroup compphys slurm
+
+# create folders and change permissions
+$ROOTCMD mkdir /var/spool/slurm
+$ROOTCMD chown compphys:root /var/spool/slurm
+$ROOTCMD chown munge:munge /etc/munge/munge.key
+#$ROOTCMD ldconfig -n /usr/lib/x86_64-linux-gnu/
+$ROOTCMD ldconfig -n /usr/local/lib/
+# $ROOTCMD chown compphys:root /var/log/slurmctld.log # only on master
+$ROOTCMD touch /var/log/slurmd.log # create empty log
+$ROOTCMD chown compphys:root /var/log/slurmd.log # nodes
+
+#$ROOTCMD chown
+
+# enable slurmd
+$ROOTCMD systemctl enable slurmd.service
+
+
+
+
+exit $error

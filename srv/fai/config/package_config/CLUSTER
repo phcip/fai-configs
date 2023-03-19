@@ -16,3 +16,4 @@ slurm-wlm
 splash
 cgroup-tools
 cpuset
+libssl-dev

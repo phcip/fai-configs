@@ -1,0 +1,23 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+#####################################################################
+# PHANTOM SETUP
+# Set the needed variables in /etc/bash.bashrc
+
+ainsl /etc/bash.bashrc "export OMP_SCHEDULE='dynamic'"
+ainsl /etc/bash.bashrc "export OMP_STACKSIZE=512M"
+ainsl /etc/bash.bashrc "export SYSTEM=gfortran"
+
+# copy the phantom directory to users scratch (CLUSTER/usr/local/bin/phantom cloned from https://github.com/trebst/phantom.git)
+# if the copy is changed from the user it can be reset to the original using /usr/local/bin/phantom
+# -n: don't override existing files. Instead use cip-reset-nodes-phantom on neptun to reset to /usr/local/bin/phantom
+$ROOTCMD cp -r -n /usr/local/bin/phantom /scratch/compphys/phantom
+$ROOTCMD chown -R compphys:cip /scratch/compphys/phantom
+# symlink
+$ROOTCMD ln -s /scratch/compphys/phantom /home/compphys/phantom
+
+
+
+exit $error

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+#####################################################################
+# correct permissions on /var/spool/rwho
+$ROOTCMD chmod +xr -R /var/spool/rwho
+
+
+exit $error
