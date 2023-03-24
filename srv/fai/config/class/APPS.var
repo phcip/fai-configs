@@ -13,11 +13,11 @@
 
 ## mirror setup
 # which NFS server to use
-server=134.95.64.59
+mirrorserver=134.95.64.59
 # path to mirror on the server
 mirrorpath="/opt/mirror"
 # where to mount on the client
-mountpath="/media/mirror"
+mirrormountpath="/media/mirror"
 
 # path to Julia installation
 juliapath="/opt" # APPS/opt/julia

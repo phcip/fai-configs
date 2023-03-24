@@ -1,0 +1,10 @@
+#!/bin/bash
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+# static entries for removable media in fstab
+ainsl /etc/fstab "#"
+ainsl /etc/fstab "# Shared Scratch Storage mount from NFS server"
+ainsl /etc/fstab "$rscratchserver:$rscratchpath $rscratchmountpath  nfs4    rw,tcp,vers=4   0 0"
+
+exit $error

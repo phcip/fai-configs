@@ -8,3 +8,11 @@
 ##  - authorized_keys           ##
 ##  - SLURM                     ##
 ##################################
+
+## remote scratch (/rscratch) setup
+# which NFS server to use
+rscratchserver=134.95.64.54 # neptun
+# path to mirror on the server
+rscratchpath="/rscratch"
+# where to mount on the client
+rscratchmountpath="/rscratch"
