@@ -46,9 +46,11 @@ $ROOTCMD $juliaVersLTS $juliapath/julia_init.jl --install-min
 # other versions
 for vers in "${!juliaVersArr[@]}"; do
     if [ "$vers" = "$juliaVersStable" ]; then
-        # already done
+        # already done but may be needed at some point at time
+        echo " " # if should not be empty
     elif [ "$vers" = "$juliaVersLTS" ]; then
-        # already done
+        # already done but may be needed at some point at time
+        echo " " # if should not be empty
     else
         # other versions
         $ROOTCMD $vers $juliapath/julia_init.jl --install-min
