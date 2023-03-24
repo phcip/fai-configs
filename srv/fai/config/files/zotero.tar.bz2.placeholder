@@ -1,0 +1,2 @@
+# Reminder: download zotero.tar.bz2 from https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64
+# wget "https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64" -O zotero.tar.bz2

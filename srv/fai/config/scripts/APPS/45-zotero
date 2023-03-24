@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# installiert Zotero (https://www.zotero.org/)
+# Quelle: https://www.zotero.org/download/client/dl?channel=release&platform=linux-x86_64
+# Schritte: https://wiki.ubuntuusers.de/Zotero/#Systemweite-Installation-fuer-alle-Benutzer
+
+error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
+
+file="zotero.tar.bz2"
+
+# Archiv auf den Klienten uebertragen
+cp $FAI/files/$file $target/tmp/
+
+# Archiv entpacken
+$ROOTCMD tar -xf /tmp/$file -C /opt
+
+# Ordner "Zotero_linux-x86_64" umbenennen
+$ROOTCMD mv /opt/Zotero_linux-x86_64 /opt/Zotero
+
+# Desktop-Icon erstellen
+$ROOTCMD bash /opt/Zotero/set_launcher_icon
+
+# Icon in der Applikationsliste anzeigen
+$ROOTCMD ln -s /opt/Zotero/zotero.desktop /usr/share/applications/zotero.desktop
+
+# Symlink fuer das Starten von Zotero erstellen
+$ROOTCMD ln -s /opt/Zotero/zotero /usr/bin/zotero
+
+
+
+exit $error
