@@ -707,6 +707,7 @@ pdftk    		# PDF editor, CLI
 gv    			# PDF and PostScript on X System
 gsfonts-x11		# GhostScript fonts, X11
 xournal    		# notes, edit PDf
+xournalpp    	# newer version of xournal
 qpdfview
 djvusmooth
 djview4 djvulibre-plugin
