@@ -9,7 +9,10 @@ error=0; trap 'error=$(($?>$error?$?:$error))' ERR # save maximum error code
 #$ROOTCMD apt -y install openafs-client openafs-modules-dkms openafs-krb5 krb5-user krb5-config
 
 # JAMMY: domainname is not set (/etc/defaultdomain gets ignored???), try permanent override in sysctl.conf
-ainsl /etc/sysctl.conf "kernel.domainname = RRZK"
+# ainsl /etc/sysctl.conf "kernel.domainname = RRZK"
+# instead: enable yp service
+$ROOTCMD systemctl enable ypbind.service
+
 
 
 exit $error
