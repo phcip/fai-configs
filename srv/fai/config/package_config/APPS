@@ -741,6 +741,9 @@ p7zip-full rar unrar
 # screenshots
 kazam
 
+# pomodoro timer
+gnome-shell-pomodoro
+
 gnome-calculator
 #==========================================================
 #======================= GRAPHICS =========================
