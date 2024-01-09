@@ -618,6 +618,7 @@ emacs
 auctex		# write and format TeX files using emacs	
 maxima-emacs	# emacs interface for maxima
 kate
+code
 
 #==========================================================
 #======================= DEVELOPMENT ======================
