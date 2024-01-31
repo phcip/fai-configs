@@ -34,11 +34,13 @@ psmisc
 dialog
 console-common kbd
 xz-utils pigz
+# CIP+: (instead of fai-make-nfsroot -N for NONFREE class, which doesn't work with fai-setup)
 zstd binutils
 firmware-linux-nonfree
 firmware-bnx2 firmware-bnx2x firmware-realtek
 firmware-cavium
 firmware-misc-nonfree
+
 
 
 # some network cards needs firmware
@@ -54,24 +56,26 @@ firmware-misc-nonfree
 PACKAGES install-norec I386
 grub-pc
 efibootmgr
-linux-image-686-pae
+#linux-image-generic # CIP ?
+linux-image-686-pae # CIP+ ?
 
 PACKAGES install-norec AMD64
 grub-pc
 grub-efi-amd64-bin
 efibootmgr
-linux-image-amd64
+#linux-image-generic # CIP-
+linux-image-amd64 # CIP+
 #linux-image-amd64/bullseye-backports # if you want to use a newer kernel
 
 PACKAGES install-norec ARM64
 grub-efi-arm64
 efibootmgr
-linux-image-arm64
+linux-image-generic
 
 PACKAGES install-norec ARMHF
 grub-efi-arm
 efibootmgr
-linux-image-armmp
+linux-image-generic
 
 PACKAGES install-norec DEBIAN_9
 apt-transport-https
