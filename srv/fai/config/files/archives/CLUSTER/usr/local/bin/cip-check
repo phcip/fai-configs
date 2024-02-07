@@ -1,0 +1,168 @@
+#!/usr/bin/bash 
+
+#Script constants
+displayHeader=1
+coresFilter=0
+memFilter=0
+pcEntries=20
+gpuOnly=0
+noArguments=0
+commandName="$0"
+
+#Define a function to print out the table headers.
+function getTable() {
+		/usr/bin/printf "HOST CPU_TYPE CORES MEM_TOTAL(GB) MEM_FREE(GB) LOAD_1MIN LOAD_5MIN LOAD_15MIN GPU\n"
+		#print "-" till end of screen width
+		cols=$(tput cols)
+		for ((i=0; i<cols; i++));do /usr/bin/printf "-"; done; echo
+}
+
+#Define a function to get the relevant data
+function getData() {
+		#get hostname.
+		hostname=`/bin/hostname`
+		#get cpuinfo, search for model name, format it and search for uniques to avoid duplicates due to multiple cores.
+		cpu=`/bin/grep name /proc/cpuinfo |/bin/sed -e 's:^.*i:i:'|/usr/bin/awk '{print $1}'|uniq`
+		#same as last step but count the number of entries instead of looking for duplicates.
+		cores=`/bin/grep name /proc/cpuinfo |/bin/sed -e 's:^.*i:i:'|/usr/bin/awk '{print $1}'|wc -l`
+		#get memory info, search for total memory, and get the second part i.e the number
+		memtotalRaw=`/bin/grep MemTotal /proc/meminfo |/usr/bin/awk '{print $2}'`
+		#get memory info, search for free memory, and get the second part i.e the number
+		memfreeRaw=`/bin/grep MemFree /proc/meminfo |/usr/bin/awk '{print $2}'`
+		#Convert from kB to GB
+		memtotal=$(/bin/echo "$((memtotalRaw/1024/1024))")
+        memfree=$(/bin/echo "$((memfreeRaw/1024/1024))")
+
+        #get loads and grab the 1st, 2nd and 3rd columns which contain 1 min, 5 min and 15 min averages.
+		load1=`/bin/cat /proc/loadavg|/usr/bin/awk '{print $1}'`
+		load2=`/bin/cat /proc/loadavg|/usr/bin/awk '{print $2}'`
+		load3=`/bin/cat /proc/loadavg|/usr/bin/awk '{print $3}'`
+
+		#load name of NVIDIA GPU available on the machine
+		gpuListing=`lspci | grep "VGA"|grep "NVIDIA"`
+		#Filter for model name
+		gpu=$(echo "$gpuListing" | grep -o "\[.*\]" )
+		#If model name was not available look for a device name
+		if [ -z "$gpu" ]; then
+			gpu=$(echo "$gpuListing" | grep -o "Device [[:alnum:]]*")
+		fi
+		#If neither were found then display '-'
+		if [ -z "$gpu" ]; then
+			gpu="-"
+		fi
+
+		#print all collected data with appropriate padding
+		/usr/bin/printf "%4s %8s %5s %13s %12s %9s %9s %10s %3s\n" "$hostname" "$cpu" "$cores" "$memtotal" "$memfree" "$load1"  "$load2" "$load3" "$gpu"
+}
+
+function distributedGetData(){
+		#create a tempfile to store all collected data.
+		tmpfile=`/bin/mktemp`
+
+		#dsh or distributed shell runs the code on all machines on the network by logging into them with ssh and saves the output to a tempfile
+		#/usr/bin/dsh -c -a "bash ~/practice.sh data" >> $tmpfile 2>&1 2>/dev/null
+		/usr/bin/dsh -c -a "$0 -h print" >> $tmpfile 2>&1 2>/dev/null
+
+		printf $tmpfile
+}
+
+#Check if the number of command-line arguments is greater than or equal to 1.
+if [ "$#" -eq 0 ]; then
+	printf "Basic Usage: $commandName [avail,print] \nUse '$commandName help' for more information\n"
+	#If no command line arguments then set noArguments to 1
+	noArguments=1
+fi
+
+#Checking for command line arguments.
+while getopts "c:e:m:gh" opt; do
+	case $opt in 
+		c)
+			coresFilter="$OPTARG"
+		;;
+		e) 
+			pcEntries="$OPTARG"
+		;;
+		m)
+			memFilter="$OPTARG"
+		;;
+		g)
+			gpuOnly=1
+		;;
+		h)
+			displayHeader=0
+		;;
+		\?) 
+			echo "Invalid option: -$OPTARG \n This option will be ignored"
+		;;
+	esac
+done
+
+#get the last command line argument and use a switch case style statement
+case ${!#} in 
+	print)
+		if [ "$displayHeader" -eq 1 ]; then
+			getTable
+		fi
+		getData
+	;;
+	avail)
+		#In no header mode do not print this so that data can be dumped to file easily.
+		if [ "$displayHeader" -eq 1 ]; then
+			printf "Finding available machines on the network. This may take a moment. \n"
+		fi
+		#get the tempfile that contains the data from all the machines.
+		tmpfile=$(distributedGetData)
+				
+		#optionally print table for formatting purposes.
+		if [ "$displayHeader" -eq 1 ]; then
+			getTable
+		fi
+
+		#Optionally filter the tempfile for machines with at least $coresFilter cores.
+		if [ "$coresFilter" -eq 0 ]; then
+			output=$(/bin/cat "$tmpfile")
+		else
+			output=$(awk -v threshold="$coresFilter" '$3>=threshold' "$tmpfile") 
+		fi
+
+		#Optionally filter the tempfile for machines with at least $memFilter memory free.
+		if [ "$memFilter" -eq 0 ]; then
+			output=$output
+		else
+			output=$(echo "$output" | awk -v threshold="$memFilter" '$5>=threshold') 
+		fi
+
+		if [ "$gpuOnly" -eq 1 ]; then
+		output=$(echo "$output" | awk '$9' )
+		fi
+
+		#sort the tempfile with column-6 (load) but only first char. Then sort by memfree and finally by cpu name. Remove the dialog PC and then list the top $pcEntries items.
+		echo "$output" | /usr/bin/sort -k6.1nb -k5hr -k2dr | /bin/grep -v dialog| /usr/bin/head -n "$pcEntries"
+
+		#remove the tempfile
+		/bin/rm -f $tmpfile
+	;;
+	help)
+		printf "Welcome to help for $commandName.\n"
+		printf "For information related to this device use '$commandName print'\n"
+		printf "For information related to all devices on the network available for computing use '$commandName avail'\n"
+		printf "\nAdvanced options are listed below, \n"
+		printf "\nFilters: These can be used to limit the search results of '$commandName avail'\n"
+		printf "It is possible to use multiple filters at once.\n"
+		printf "\nMemory filter: Only lists devices above this amount of free memory (GB)\n"
+		printf "Example: '$commandName -m 10 avail' filters for devices with more than 10GB of free memory\n" 
+		printf "\nCPU filter: Only lists devices above this amount of cpu cores\n"
+		printf "Example: '$commandName -c 10 avail' filters for devices with more than 10 cpu cores\n" 
+		printf "\nGPU filter: Only lists devices with an NVIDIA GPU\n"
+		printf "Example: '$commandName -g avail' filters for devices with an available Nvidia GPU"
+		printf "\nEntries: Change the number of devices listed.\n"
+		printf "Example: '$commandName -e 10 avail' lists 10 devices with most available resources\n"
+		printf "\nNo Header: Removes header, useful for piping output to file.\n"
+		printf "Example: '$commandName -h avail > example.txt' saves output without header into example.txt\n"
+	;;
+	*)
+		#In case an argument was passed and we are here, the argument was unsupported
+		if [ "$noArguments" -eq 0 ]; then 
+		printf "Unsupported argument, please look at '$commandName help'\n"
+		fi
+esac
